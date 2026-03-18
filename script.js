@@ -118,6 +118,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (countEl) countEl.innerText = activeCount;
     }
 
+    // Function to update zone badges showing active light count per zone
+    function updateZoneBadges() {
+        document.querySelectorAll('.zone-group[data-zone-id]').forEach(group => {
+            const zoneId = group.getAttribute('data-zone-id');
+            const activeInZone = group.querySelectorAll('.hidden-checkbox:checked').length;
+            const badge = group.querySelector('.zone-active-badge');
+            
+            if (badge) {
+                if (activeInZone > 0) {
+                    badge.textContent = activeInZone + ' ON';
+                    badge.classList.add('visible');
+                    group.classList.add('has-active');
+                } else {
+                    badge.textContent = '';
+                    badge.classList.remove('visible');
+                    group.classList.remove('has-active');
+                }
+            }
+        });
+    }
+
     // Core logic for updating state and publishing
     function setLightState(zId, lId, isOn) {
         // Find DOM Elements
@@ -157,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Update Active Count
         updateActiveCount();
+        updateZoneBadges();
     }
 
     // Direct Toggle Event Listeners
@@ -176,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Initial fetch of active state count
     updateActiveCount();
+    updateZoneBadges();
 
     // Zone-Level Buttons
     document.querySelectorAll('.zone-btn-on').forEach(btn => {

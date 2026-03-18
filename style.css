@@ -286,6 +286,43 @@ h1 .subtitle {
     color: var(--accent);
 }
 
+/* Right side of zone header */
+.zone-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Active light count badge */
+.zone-active-badge {
+    display: none; /* Hidden when no lights are on */
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.zone-active-badge.visible {
+    display: inline-flex;
+}
+
+/* Zone group glows when it has active lights */
+.zone-group.has-active {
+    border-color: rgba(59, 130, 246, 0.25);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.08);
+}
+
+.zone-group.has-active .zone-icon {
+    background: var(--accent-soft);
+    border-color: rgba(59, 130, 246, 0.2);
+}
+
 /* Zone collapse content */
 .zone-collapse {
     max-height: 0;
