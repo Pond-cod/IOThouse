@@ -12,76 +12,189 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <header class="integrated-header card">
+        <header class="integrated-header">
             <div class="header-top">
                 <div class="header-titles">
-                    <h1>⚡ Pond's Smart Home | Control Panel</h1>
-                    <span class="subtitle">All Devices: 15</span>
+                    <h1>Home</h1>
                 </div>
                 <div id="connection-status" class="status disconnected">Disconnected</div>
             </div>
         </header>
 
-
-
         <!-- Control Section -->
         <main class="zones-grid" id="zones-container">
+
             <!-- Zone 1: Front Zone -->
             <div class="zone-group">
-                <h2 class="zone-title">Zone 1: Front Zone</h2>
-                <div class="lights-grid">
-                    <label class="switch-card" id="zone1-light1">
-                        <input type="checkbox" class="hidden-checkbox" data-zone="1" data-light="1">
-                        <div class="switch-content">
-                            <span class="switch-icon">💡</span>
-                            <span class="switch-label">Front 1<br><small>(หน้าบ้าน)</small></span>
+                <div class="zone-header" onclick="toggleZone(this)">
+                    <div class="zone-header-left">
+                        <span class="zone-icon">🏠</span>
+                        <div>
+                            <span class="zone-name">หน้าบ้าน</span>
+                            <span class="zone-count">2 devices</span>
                         </div>
-                    </label>
-                    <label class="switch-card" id="zone1-light2">
-                        <input type="checkbox" class="hidden-checkbox" data-zone="1" data-light="2">
-                        <div class="switch-content">
-                            <span class="switch-icon">💡</span>
-                            <span class="switch-label">Front 2<br><small>(หน้าTV)</small></span>
-                        </div>
-                    </label>
+                    </div>
+                    <span class="zone-chevron">›</span>
+                </div>
+                <div class="zone-collapse">
+                    <div class="lights-grid">
+                        <label class="switch-card" id="zone1-light1">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="1" data-light="1">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ดวงหน้าบ้าน</span>
+                            </div>
+                        </label>
+                        <label class="switch-card" id="zone1-light2">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="1" data-light="2">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ดวงหน้า TV</span>
+                            </div>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <!-- Zone 2: Living Room -->
             <div class="zone-group">
-                <h2 class="zone-title">Zone 2: Living Room</h2>
-                <div class="lights-grid">
-                    <label class="switch-card" id="zone2-light1">
-                        <input type="checkbox" class="hidden-checkbox" data-zone="2" data-light="1">
-                        <div class="switch-content">
-                            <span class="switch-icon">💡</span>
-                            <span class="switch-label">Living Room 1<br><small>(หน้าโซฟา)</small></span>
+                <div class="zone-header" onclick="toggleZone(this)">
+                    <div class="zone-header-left">
+                        <span class="zone-icon">🛋️</span>
+                        <div>
+                            <span class="zone-name">กลางบ้าน</span>
+                            <span class="zone-count">2 devices</span>
                         </div>
-                    </label>
-                    <label class="switch-card" id="zone2-light2">
-                        <input type="checkbox" class="hidden-checkbox" data-zone="2" data-light="2">
-                        <div class="switch-content">
-                            <span class="switch-icon">💡</span>
-                            <span class="switch-label">Living Room 2<br><small>(โต๊ะอาหาร)</small></span>
-                        </div>
-                    </label>
+                    </div>
+                    <span class="zone-chevron">›</span>
+                </div>
+                <div class="zone-collapse">
+                    <div class="lights-grid">
+                        <label class="switch-card" id="zone2-light1">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="2" data-light="1">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ดวงหน้า</span>
+                            </div>
+                        </label>
+                        <label class="switch-card" id="zone2-light2">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="2" data-light="2">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ดวงหลัง</span>
+                            </div>
+                        </label>
+                    </div>
                 </div>
             </div>
 
             <!-- Zone 3: Bathroom -->
             <div class="zone-group">
-                <h2 class="zone-title">Bathroom</h2>
-                <div class="lights-grid">
-                    <label class="switch-card" id="zone3-light1">
-                        <input type="checkbox" class="hidden-checkbox" data-zone="3" data-light="1">
-                        <div class="switch-content">
-                            <span class="switch-icon">💡</span>
-                            <span class="switch-label">Bathroom 1<br><small>(ห้องอาบน้ำ)</small></span>
+                <div class="zone-header" onclick="toggleZone(this)">
+                    <div class="zone-header-left">
+                        <span class="zone-icon">🚿</span>
+                        <div>
+                            <span class="zone-name">ห้องน้ำ</span>
+                            <span class="zone-count">2 devices</span>
                         </div>
-                    </label>
+                    </div>
+                    <span class="zone-chevron">›</span>
+                </div>
+                <div class="zone-collapse">
+                    <div class="lights-grid">
+                        <label class="switch-card" id="zone3-light1">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="3" data-light="1">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ห้องอาบ</span>
+                            </div>
+                        </label>
+                        <label class="switch-card" id="zone3-light2">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="3" data-light="2">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ห้องส้วม</span>
+                            </div>
+                        </label>
+                    </div>
                 </div>
             </div>
-            
+
+            <!-- Zone 4: Kitchen -->
+            <div class="zone-group">
+                <div class="zone-header" onclick="toggleZone(this)">
+                    <div class="zone-header-left">
+                        <span class="zone-icon">🍳</span>
+                        <div>
+                            <span class="zone-name">ครัว</span>
+                            <span class="zone-count">1 device</span>
+                        </div>
+                    </div>
+                    <span class="zone-chevron">›</span>
+                </div>
+                <div class="zone-collapse">
+                    <div class="lights-grid">
+                        <label class="switch-card" id="zone4-light1">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="4" data-light="1">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ครัว</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zone 5: Bedroom 1 -->
+            <div class="zone-group">
+                <div class="zone-header" onclick="toggleZone(this)">
+                    <div class="zone-header-left">
+                        <span class="zone-icon">🛏️</span>
+                        <div>
+                            <span class="zone-name">ห้องแรก</span>
+                            <span class="zone-count">1 device</span>
+                        </div>
+                    </div>
+                    <span class="zone-chevron">›</span>
+                </div>
+                <div class="zone-collapse">
+                    <div class="lights-grid">
+                        <label class="switch-card" id="zone5-light1">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="5" data-light="1">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ห้องแรก</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zone 6: Bedroom 2 -->
+            <div class="zone-group">
+                <div class="zone-header" onclick="toggleZone(this)">
+                    <div class="zone-header-left">
+                        <span class="zone-icon">🛏️</span>
+                        <div>
+                            <span class="zone-name">ห้องกลาง</span>
+                            <span class="zone-count">1 device</span>
+                        </div>
+                    </div>
+                    <span class="zone-chevron">›</span>
+                </div>
+                <div class="zone-collapse">
+                    <div class="lights-grid">
+                        <label class="switch-card" id="zone6-light1">
+                            <input type="checkbox" class="hidden-checkbox" data-zone="6" data-light="1">
+                            <div class="switch-content">
+                                <span class="switch-icon">💡</span>
+                                <span class="switch-label">ห้องกลาง</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <!-- Global Controls -->
             <div class="global-controls-secondary">
                 <button id="btn-all-on" class="btn btn-secondary">TURN ALL ON</button>

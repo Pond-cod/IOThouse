@@ -98,9 +98,12 @@ function onConnectionLost(responseObject) {
 
 // Zone Configuration
 const zoneConfig = [
-    { id: 1, name: "Front Zone", lights: [{ id: 1, name: "Front 1" }, { id: 2, name: "Front 2" }] },
-    { id: 2, name: "Living Room", lights: [{ id: 1, name: "Living Room 1" }, { id: 2, name: "Living Room 2" }] },
-    { id: 3, name: "Bathroom", lights: [{ id: 1, name: "Bathroom 1" }] }
+    { id: 1, name: "หน้าบ้าน", lights: [{ id: 1, name: "ดวงหน้าบ้าน" }, { id: 2, name: "ดวงหน้า TV" }] },
+    { id: 2, name: "กลางบ้าน", lights: [{ id: 1, name: "ดวงหน้า" }, { id: 2, name: "ดวงหลัง" }] },
+    { id: 3, name: "ห้องน้ำ", lights: [{ id: 1, name: "ห้องอาบ" }, { id: 2, name: "ห้องส้วม" }] },
+    { id: 4, name: "ครัว", lights: [{ id: 1, name: "ครัว" }] },
+    { id: 5, name: "ห้องแรก", lights: [{ id: 1, name: "ห้องแรก" }] },
+    { id: 6, name: "ห้องกลาง", lights: [{ id: 1, name: "ห้องกลาง" }] }
 ];
 
 // Generate UI and Set Event Listeners
@@ -229,22 +232,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * Toggles the Accordion Header to drop down the grid tiles cleanly
- * Calculates the exact scrollHeight to transition max-height seamlessly
+ * Toggle a zone's collapsible content open/closed
  */
-function toggleAccordion(headerElement) {
-    headerElement.classList.toggle('active');
+function toggleZone(headerElement) {
+    headerElement.classList.toggle('open');
+    const collapse = headerElement.nextElementSibling;
     
-    // Find the adjacent .accordion-content wrapper
-    const content = headerElement.nextElementSibling;
-    
-    if (content.style.maxHeight) {
-        // Close it
-        content.style.maxHeight = null;
-        content.style.opacity = 0;
+    if (collapse.classList.contains('open')) {
+        // Close
+        collapse.style.maxHeight = null;
+        collapse.classList.remove('open');
     } else {
-        // Open it (calculate intrinsic pixel height for CSS transition)
-        content.style.maxHeight = content.scrollHeight + "px";
-        content.style.opacity = 1;
+        // Open
+        collapse.style.maxHeight = collapse.scrollHeight + 'px';
+        collapse.classList.add('open');
     }
 }

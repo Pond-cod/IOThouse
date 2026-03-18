@@ -193,13 +193,77 @@ h1 .subtitle {
 .zones-grid {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 12px;
 }
 
 .zone-group {
+    background: var(--bg-card);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+/* Zone Header (tappable accordion trigger) */
+.zone-header {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition-fast);
+}
+
+.zone-header:active { background: rgba(0,0,0,0.02); }
+
+.zone-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.zone-icon {
+    font-size: 1.8rem;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: #F4F5F7;
+    border-radius: 14px;
+}
+
+.zone-name {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.zone-count {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.zone-chevron {
+    font-size: 1.6rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+}
+
+.zone-header.open .zone-chevron {
+    transform: rotate(90deg);
+}
+
+/* Collapsible content */
+.zone-collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 20px;
+}
+
+.zone-collapse.open {
+    padding: 0 20px 20px;
 }
 
 .zone-title {
