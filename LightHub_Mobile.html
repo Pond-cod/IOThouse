@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOT_HOUSE</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0b0f19">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* High-Tech Dark Palette */
+            --bg-dark: #0b0f19;
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --border-accent: rgba(56, 189, 248, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+
+            /* Neon Colors */
+            --neon-blue: #0ea5e9;
+            --neon-cyan: #06b6d4;
+            --neon-green: #10b981;
+            --neon-purple: #8b5cf6;
+            --neon-pink: #ec4899;
+
+            --shadow-glow: 0 0 15px rgba(14, 165, 233, 0.3);
+            --shadow-glow-active: 0 0 25px rgba(6, 182, 212, 0.6);
+            --glass-blur: blur(16px);
+
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            min-height: 100vh;
+            color: var(--text-main);
+            line-height: 1.6;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Cyber Glassmorphism Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 24px 32px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 20px;
+            border: 1px solid var(--border-accent);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            opacity: 0.5;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        h1 span {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        .status {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .status::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status.connected {
+            color: var(--neon-green);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: inset 0 0 15px rgba(16, 185, 129, 0.1);
+        }
+
+        .status.connected::before {
+            background-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+        }
+
+        .status.disconnected {
+            color: var(--neon-pink);
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+
+        .status.disconnected::before {
+            background-color: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Metrics Summary Section */
+        .metrics-container {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(16, 185, 129, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .metric-card:nth-child(2) {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border-color: rgba(236, 72, 153, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(236, 72, 153, 0.05);
+        }
+
+        .metric-icon {
+            font-size: 2rem;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .metric-card:nth-child(1) .metric-value {
+            color: var(--neon-green);
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .metric-card:nth-child(2) .metric-value {
+            color: var(--neon-pink);
+            text-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        /* Global Controls */
+        .global-controls {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            transition: var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--neon-cyan);
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: rgba(6, 182, 212, 0.2);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4), inset 0 0 10px rgba(6, 182, 212, 0.2);
+            text-shadow: 0 0 8px var(--neon-cyan);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--neon-pink);
+            border-color: rgba(236, 72, 153, 0.5);
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+        }
+
+        .btn-danger:hover {
+            background: rgba(236, 72, 153, 0.2);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.4), inset 0 0 10px rgba(236, 72, 153, 0.2);
+            text-shadow: 0 0 8px var(--neon-pink);
+            transform: translateY(-2px);
+        }
+
+        /* Zones Grid */
+        .zones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        /* Cyber Cards */
+        .zone-card {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.5);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .zone-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            border: 1px solid var(--border-accent);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .zone-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+
+        .zone-card:hover::after {
+            opacity: 1;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .zone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .zone-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 1px;
+        }
+
+        .zone-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background: var(--neon-blue);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .zone-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            border-radius: 6px;
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+
+        .btn-outline:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lights-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .light-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .light-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .light-item.active {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, rgba(0, 0, 0, 0.2) 100%);
+            border-left: 2px solid var(--neon-cyan);
+            border-top: 1px solid rgba(6, 182, 212, 0.2);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+            border-right: 1px solid rgba(6, 182, 212, 0.05);
+        }
+
+        .light-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .light-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .light-icon {
+            font-size: 1.4rem;
+            transition: var(--transition-smooth);
+            color: #475569;
+            background: rgba(0, 0, 0, 0.3);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .light-item.active .light-icon {
+            color: #fff;
+            background: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.5);
+            text-shadow: 0 0 10px #fff;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3) inset;
+        }
+
+        .light-name {
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            transition: var(--transition-fast);
+            letter-spacing: 0.5px;
+        }
+
+        .light-item.active .light-name {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .light-stats {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-block;
+            width: fit-content;
+            transition: var(--transition-fast);
+        }
+
+        .light-item.active .light-stats {
+            color: var(--neon-cyan);
+            border-color: rgba(6, 182, 212, 0.3);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        /* Hardcore Tech Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 56px;
+            height: 28px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #1e293b;
+            transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            border-radius: 8px;
+            border: 1px solid #334155;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 24px;
+            left: 4px;
+            bottom: 3px;
+            background-color: var(--text-muted);
+            transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        input:checked+.slider {
+            background-color: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: inset 0 0 10px rgba(6, 182, 212, 0.2);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(22px);
+            background-color: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px rgba(6, 182, 212, 0.6);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 24px;
+            }
+
+            .metrics-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .global-controls {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+            }
+
+            .zones-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>IOT_HOUSE</h1>
+            <div id="connection-status" class="status disconnected">Disconnected</div>
+        </header>
+
+        <section class="metrics-container">
+            <div class="metric-card">
+                <div class="metric-icon">⏱️</div>
+                <div class="metric-details">
+                    <span class="metric-label">Total Usage</span>
+                    <span id="total-hours-display" class="metric-value">0.00 hrs</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">💰</div>
+                <div class="metric-details">
+                    <span class="metric-label">Total Cost</span>
+                    <span id="total-cost-display" class="metric-value">0.00 ฿</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="global-controls">
+            <div style="margin-right: auto;">
+                <a href="report.html" class="btn btn-primary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">📊 View Full Reports</a>
+            </div>
+            <button id="btn-all-on" class="btn btn-primary">Turn On All</button>
+            <button id="btn-all-off" class="btn btn-danger">Turn Off All</button>
+        </section>
+
+        <main class="zones-grid" id="zones-container">
+            <!-- Zones will be dynamically injected by JS -->
+        </main>
+    </div>
+
+    <!-- Paho MQTT client from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <script>
+        // Configuration
+        const MQTT_BROKER = "broker.hivemq.com";
+        const MQTT_PORT = 8000;
+        const MQTT_PATH = "/mqtt";
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-6AtDuFvkb9cKRCDJC9shYwJLNUQXPu0TueuCA015rENWUwzT1YBXCKh6hSC1mRuLRg/exec';
+
+        // Logger Function
+        function logToGoogleSheets(zoneName, lightName, action) {
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    zone: zoneName,
+                    light: lightName,
+                    action: action
+                })
+            }).then(() => {
+                setTimeout(fetchSummaryData, 1500);
+            }).catch(error => console.error('Error logging to Google Sheets:', error));
+        }
+
+        // Fetch Summary Data
+        function fetchSummaryData() {
+            fetch(GOOGLE_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('total-hours-display').innerText = (data.totalHours || "0.00") + ' hrs';
+                    document.getElementById('total-cost-display').innerText = (data.totalCost || "0.00") + ' ฿';
+
+                    // Individual Light Stats
+                    if (data.individual) {
+                        for (const [key, stats] of Object.entries(data.individual)) {
+                            const statEl = document.getElementById(`stats-${key}`);
+                            if (statEl) {
+                                const hrs = stats.hours !== undefined ? parseFloat(stats.hours).toFixed(2) : "0.00";
+                                const cost = stats.cost !== undefined ? parseFloat(stats.cost).toFixed(2) : "0.00";
+                                statEl.innerText = `${hrs} hrs | ${cost} ฿`;
+                            }
+                        }
+                    }
+                })
+                .catch(error => console.error('Error fetching summary:', error));
+        }
+
+        // Generate a random Client ID
+        const clientId = "web_" + Math.random().toString(16).substr(2, 8);
+
+        // Initialize Client
+        const client = new Paho.MQTT.Client(MQTT_BROKER, MQTT_PORT, MQTT_PATH, clientId);
+
+        // Setup Callbacks
+        client.onConnectionLost = onConnectionLost;
+
+        // Start Connection
+        connect();
+
+        function connect() {
+            console.log(`Connecting to ${MQTT_BROKER}:${MQTT_PORT}${MQTT_PATH} as ${clientId}...`);
+            client.connect({
+                onSuccess: onConnect,
+                onFailure: onFailure,
+                useSSL: false
+            });
+        }
+
+        function onConnect() {
+            console.log("Connected to MQTT broker!");
+            const statusEl = document.getElementById("connection-status");
+            statusEl.textContent = "Connected";
+            statusEl.classList.remove("disconnected");
+            statusEl.classList.add("connected");
+        }
+
+        function onFailure(responseObject) {
+            console.error("Connection failed:", responseObject.errorMessage);
+            const statusEl = document.getElementById("connection-status");
+            statusEl.textContent = "Connection Failed";
+        }
+
+        function onConnectionLost(responseObject) {
+            if (responseObject.errorCode !== 0) {
+                console.warn("Connection lost:", responseObject.errorMessage);
+                const statusEl = document.getElementById("connection-status");
+                statusEl.textContent = "Disconnected";
+                statusEl.classList.remove("connected");
+                statusEl.classList.add("disconnected");
+                // Attempt reconnect after 5 seconds
+                setTimeout(connect, 5000);
+            }
+        }
+
+        // Zone Configuration
+        const zoneConfig = [
+            { id: 1, name: "หน้าบ้าน/หน้าTV", lights: [{ id: 1, name: "หน้าบ้าน" }, { id: 2, name: "หน้าTV" }] },
+            { id: 2, name: "กลางบ้าน", lights: [{ id: 1, name: "ดวงหน้า" }, { id: 2, name: "ดวงหลัง" }] },
+            { id: 3, name: "ห้องน้ำ", lights: [{ id: 1, name: "ห้องอาบ" }, { id: 2, name: "ห้องส้วม" }] },
+            { id: 4, name: "ครัว", lights: [{ id: 1, name: "ครัว" }] },
+            { id: 5, name: "ห้องแรก", lights: [{ id: 1, name: "ห้องแรก" }] },
+            { id: 6, name: "ห้องกลาง", lights: [{ id: 1, name: "ห้องกลาง" }] }
+        ];
+
+        // Generate UI and Set Event Listeners
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchSummaryData();
+
+            const container = document.getElementById("zones-container");
+
+            zoneConfig.forEach(zone => {
+                const zoneCard = document.createElement("div");
+                zoneCard.className = "zone-card";
+
+                let zoneActionsHtml = '';
+                if (zone.lights.length > 1) {
+                    zoneActionsHtml = `
+                <div class="zone-actions">
+                    <button class="btn btn-sm btn-outline zone-btn-on" data-zone="${zone.id}">On All</button>
+                    <button class="btn btn-sm btn-outline zone-btn-off" data-zone="${zone.id}">Off All</button>
+                </div>
+            `;
+                }
+
+                // Zone Header
+                const headerHtml = `
+            <div class="zone-header">
+                <h2 class="zone-title">📍 ${zone.name}</h2>
+                ${zoneActionsHtml}
+            </div>
+        `;
+
+                // Lights Container
+                const lightsContainer = document.createElement("div");
+                lightsContainer.className = "lights-container";
+
+                zone.lights.forEach(light => {
+                    const lightItem = document.createElement("div");
+                    lightItem.className = "light-item";
+                    lightItem.id = `zone${zone.id}-light${light.id}`;
+
+                    lightItem.innerHTML = `
+                <div class="light-info">
+                    <span class="light-icon">💡</span>
+                    <div class="light-text-group">
+                        <span class="light-name">${light.name}</span>
+                        <div class="light-stats" id="stats-${zone.name}_${light.name}">0.00 hrs | 0.00 ฿</div>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-z${zone.id}-l${light.id}" data-zone="${zone.id}" data-light="${light.id}">
+                    <span class="slider"></span>
+                </label>
+            `;
+
+                    lightsContainer.appendChild(lightItem);
+                });
+
+                zoneCard.innerHTML = headerHtml;
+                zoneCard.appendChild(lightsContainer);
+                container.appendChild(zoneCard);
+            });
+
+            // Core logic for updating state and publishing
+            function setLightState(zId, lId, isOn) {
+                // Find DOM Elements
+                const toggle = document.getElementById(`toggle-z${zId}-l${lId}`);
+                const lightItem = document.getElementById(`zone${zId}-light${lId}`);
+
+                if (!toggle || !lightItem) return;
+
+                // Visual change
+                toggle.checked = isOn;
+                if (isOn) {
+                    lightItem.classList.add("active");
+                } else {
+                    lightItem.classList.remove("active");
+                }
+
+                // MQTT Publish
+                if (client.isConnected()) {
+                    const topic = `my_private_room_99/zone${zId}/light${lId}/command`;
+                    const payload = isOn ? "ON" : "OFF";
+                    const message = new Paho.MQTT.Message(payload);
+                    message.destinationName = topic;
+                    client.send(message);
+                    console.log(`Published to ${topic}: ${payload}`);
+                }
+
+                // Log to Google Sheets
+                const zone = zoneConfig.find(z => z.id === zId);
+                if (zone) {
+                    const light = zone.lights.find(l => l.id === lId);
+                    if (light) {
+                        logToGoogleSheets(zone.name, light.name, isOn ? "ON" : "OFF");
+                    }
+                }
+            }
+
+            // Direct Toggle Event Listeners
+            const toggles = document.querySelectorAll('input[type="checkbox"]');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', (e) => {
+                    const zId = parseInt(e.target.getAttribute('data-zone'));
+                    const lId = parseInt(e.target.getAttribute('data-light'));
+                    const isOn = e.target.checked;
+                    setLightState(zId, lId, isOn);
+                });
+            });
+
+            // Zone-Level Buttons
+            document.querySelectorAll('.zone-btn-on').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const zId = parseInt(e.target.getAttribute('data-zone'));
+                    const zone = zoneConfig.find(z => z.id === zId);
+                    if (zone) {
+                        zone.lights.forEach(l => setLightState(zId, l.id, true));
+                    }
+                });
+            });
+
+            document.querySelectorAll('.zone-btn-off').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const zId = parseInt(e.target.getAttribute('data-zone'));
+                    const zone = zoneConfig.find(z => z.id === zId);
+                    if (zone) {
+                        zone.lights.forEach(l => setLightState(zId, l.id, false));
+                    }
+                });
+            });
+
+            // Global Action Buttons
+            const btnAllOn = document.getElementById('btn-all-on');
+            const btnAllOff = document.getElementById('btn-all-off');
+
+            if (btnAllOn) {
+                btnAllOn.addEventListener('click', () => {
+                    zoneConfig.forEach(zone => {
+                        zone.lights.forEach(l => setLightState(zone.id, l.id, true));
+                    });
+                    logToGoogleSheets('All', 'All', 'ON');
+                });
+            }
+
+            if (btnAllOff) {
+                btnAllOff.addEventListener('click', () => {
+                    zoneConfig.forEach(zone => {
+                        zone.lights.forEach(l => setLightState(zone.id, l.id, false));
+                    });
+                    logToGoogleSheets('All', 'All', 'OFF');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>IOT_HOUSE</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IOT_HOUSE</h1>
+            <div id="connection-status" class="status disconnected">Disconnected</div>
+        </header>
+
+        <section class="metrics-container">
+            <div class="metric-card">
+                <div class="metric-icon">⏱️</div>
+                <div class="metric-details">
+                    <span class="metric-label">Total Usage</span>
+                    <span id="total-hours-display" class="metric-value">0.00 hrs</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">💰</div>
+                <div class="metric-details">
+                    <span class="metric-label">Total Cost</span>
+                    <span id="total-cost-display" class="metric-value">0.00 ฿</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="global-controls">
+            <div style="margin-right: auto;">
+                <a href="report.html" class="btn btn-primary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">📊 View Full Reports</a>
+            </div>
+            <button id="btn-all-on" class="btn btn-primary">Turn On All</button>
+            <button id="btn-all-off" class="btn btn-danger">Turn Off All</button>
+        </section>
+
+        <main class="zones-grid" id="zones-container">
+
+        <div class="zone-card">
+            <div class="zone-header">
+                <h2 class="zone-title">📍 หน้าบ้าน/หน้าTV</h2>
+                <div class="zone-actions">
+                    <button class="btn btn-sm btn-outline zone-btn-on" data-zone="1">On All</button>
+                    <button class="btn btn-sm btn-outline zone-btn-off" data-zone="1">Off All</button>
+                </div>
+            </div>
+            <div class="lights-container">
+                <div class="light-item" id="zone1-light1">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">หน้าบ้าน</span>
+                            <div class="light-stats" id="stats-หน้าบ้าน/หน้าTV_หน้าบ้าน">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z1-l1" data-zone="1" data-light="1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="light-item" id="zone1-light2">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">หน้าTV</span>
+                            <div class="light-stats" id="stats-หน้าบ้าน/หน้าTV_หน้าTV">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z1-l2" data-zone="1" data-light="2">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="zone-card">
+            <div class="zone-header">
+                <h2 class="zone-title">📍 กลางบ้าน</h2>
+                <div class="zone-actions">
+                    <button class="btn btn-sm btn-outline zone-btn-on" data-zone="2">On All</button>
+                    <button class="btn btn-sm btn-outline zone-btn-off" data-zone="2">Off All</button>
+                </div>
+            </div>
+            <div class="lights-container">
+                <div class="light-item" id="zone2-light1">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">ดวงหน้า</span>
+                            <div class="light-stats" id="stats-กลางบ้าน_ดวงหน้า">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z2-l1" data-zone="2" data-light="1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="light-item" id="zone2-light2">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">ดวงหลัง</span>
+                            <div class="light-stats" id="stats-กลางบ้าน_ดวงหลัง">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z2-l2" data-zone="2" data-light="2">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="zone-card">
+            <div class="zone-header">
+                <h2 class="zone-title">📍 ห้องน้ำ</h2>
+                <div class="zone-actions">
+                    <button class="btn btn-sm btn-outline zone-btn-on" data-zone="3">On All</button>
+                    <button class="btn btn-sm btn-outline zone-btn-off" data-zone="3">Off All</button>
+                </div>
+            </div>
+            <div class="lights-container">
+                <div class="light-item" id="zone3-light1">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">ห้องอาบ</span>
+                            <div class="light-stats" id="stats-ห้องน้ำ_ห้องอาบ">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z3-l1" data-zone="3" data-light="1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="light-item" id="zone3-light2">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">ห้องส้วม</span>
+                            <div class="light-stats" id="stats-ห้องน้ำ_ห้องส้วม">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z3-l2" data-zone="3" data-light="2">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="zone-card">
+            <div class="zone-header">
+                <h2 class="zone-title">📍 ครัว</h2>
+            </div>
+            <div class="lights-container">
+                <div class="light-item" id="zone4-light1">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">ครัว</span>
+                            <div class="light-stats" id="stats-ครัว_ครัว">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z4-l1" data-zone="4" data-light="1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="zone-card">
+            <div class="zone-header">
+                <h2 class="zone-title">📍 ห้องแรก</h2>
+            </div>
+            <div class="lights-container">
+                <div class="light-item" id="zone5-light1">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">ห้องแรก</span>
+                            <div class="light-stats" id="stats-ห้องแรก_ห้องแรก">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z5-l1" data-zone="5" data-light="1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="zone-card">
+            <div class="zone-header">
+                <h2 class="zone-title">📍 ห้องกลาง</h2>
+            </div>
+            <div class="lights-container">
+                <div class="light-item" id="zone6-light1">
+                    <div class="light-info">
+                        <span class="light-icon">💡</span>
+                        <div class="light-text-group">
+                            <span class="light-name">ห้องกลาง</span>
+                            <div class="light-stats" id="stats-ห้องกลาง_ห้องกลาง">0.00 hrs | 0.00 ฿</div>
+                        </div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-z6-l1" data-zone="6" data-light="1">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <!-- Paho MQTT client from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

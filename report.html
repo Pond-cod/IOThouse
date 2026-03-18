@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Usage Reports - IOT_HOUSE</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Table Styles for Cyberpunk Theme */
+        .report-section {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+            padding-bottom: 16px;
+        }
+
+        .report-title {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cyber-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cyber-table th {
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px;
+            text-align: left;
+            border-bottom: 2px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .cyber-table td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.01);
+            transition: var(--transition-fast);
+        }
+
+        .cyber-table tbody tr:hover td {
+            background: rgba(6, 182, 212, 0.05);
+            color: var(--neon-cyan);
+        }
+
+        .cyber-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .empty-row td {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 32px;
+        }
+
+        .loading-overlay {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: var(--neon-cyan);
+            font-weight: 600;
+            letter-spacing: 2px;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.5;
+                text-shadow: 0 0 5px var(--neon-cyan);
+            }
+
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 20px var(--neon-cyan);
+            }
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            margin: 0;
+            font-size: 2rem;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="nav-header">
+            <!-- Navigation -->
+            <a href="index.html" class="btn btn-outline"
+                style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                ⬅️ Back to Dashboard
+            </a>
+
+            <h1 class="page-title">Electricity <span>Reports</span></h1>
+
+            <button id="btn-refresh" class="btn btn-primary"
+                style="display: inline-flex; align-items: center; gap: 8px;">
+                🔄 Refresh Data
+            </button>
+        </div>
+
+        <div id="loading-indicator" class="loading-overlay">
+            FETCHING DATA FROM GRID...
+        </div>
+
+        <section class="report-section">
+            <div class="report-header">
+                <h2 class="report-title">📅 Daily Report</h2>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="cyber-table" id="daily-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Hours Used</th>
+                            <th>Cost (฿)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="report-section">
+            <div class="report-header">
+                <h2 class="report-title">🗓️ Monthly Report</h2>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="cyber-table" id="monthly-table">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Hours Used</th>
+                            <th>Cost (฿)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjMYHS9q7Qh1HC58IK8T8Rb33Q178Q81PUk2a5TkL6aR085EbYSkGnwkJ8jAQ9t9zkkA/exec';
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchReports();
+
+            document.getElementById('btn-refresh').addEventListener('click', () => {
+                fetchReports();
+            });
+        });
+
+        function fetchReports() {
+            const loadingHtml = document.getElementById('loading-indicator');
+            const dailyTbody = document.querySelector('#daily-table tbody');
+            const monthlyTbody = document.querySelector('#monthly-table tbody');
+
+            loadingHtml.style.display = 'block';
+
+            fetch(GOOGLE_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    loadingHtml.style.display = 'none';
+
+                    // Populate Daily Table
+                    dailyTbody.innerHTML = '';
+                    if (data.dailyReport && data.dailyReport.length > 0) {
+                        data.dailyReport.forEach(item => {
+                            dailyTbody.innerHTML += `<tr><td>${item.date}</td><td>${item.hours}</td><td>${item.cost}</td></tr>`;
+                        });
+                    } else {
+                        dailyTbody.innerHTML = '<tr class="empty-row"><td colspan="3">No daily data available yet</td></tr>';
+                    }
+
+                    // Populate Monthly Table
+                    monthlyTbody.innerHTML = '';
+                    if (data.monthlyReport && data.monthlyReport.length > 0) {
+                        data.monthlyReport.forEach(item => {
+                            monthlyTbody.innerHTML += `<tr><td>${item.month}</td><td>${item.hours}</td><td>${item.cost}</td></tr>`;
+                        });
+                    } else {
+                        monthlyTbody.innerHTML = '<tr class="empty-row"><td colspan="3">No monthly data available yet</td></tr>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching reports:', error);
+                    loadingHtml.style.display = 'none';
+                    dailyTbody.innerHTML = '<tr class="empty-row"><td colspan="3" style="color: var(--neon-pink);">Error loading data</td></tr>';
+                    monthlyTbody.innerHTML = '<tr class="empty-row"><td colspan="3" style="color: var(--neon-pink);">Error loading data</td></tr>';
+                });
+        }
+    </script>
+</body>
+
+</html>
