@@ -11,73 +11,47 @@
 </head>
 <body>
     <div class="container">
-        <!-- Integrated Header & Summary Panel -->
-        <header class="integrated-header">
+        <!-- Header -->
+        <header class="integrated-header card">
             <div class="header-top">
                 <div class="header-titles">
-                    <h1>⚡ Pond's Smart Home</h1>
-                    <span class="subtitle">Usage Dashboard</span>
+                    <h1>⚡ Pond's Smart Home | Usage</h1>
+                    <span class="subtitle">Energy Monitoring</span>
                 </div>
-                <div id="connection-status" class="status disconnected">Disconnected</div>
+                <div id="connection-status" class="status connected" style="visibility: hidden;">Online</div>
             </div>
         </header>
 
-        <!-- SPA view: Usage -->
-        <div id="view-usage" class="view-section active">
-            <div class="usage-header">
-                <h2>Energy Overview</h2>
-                <p>Current Billing Cycle</p>
+        <!-- Summary Cards -->
+        <section class="summary-section">
+            <h2 class="zone-title" style="border: none; margin-bottom: 24px;">Current Billing Cycle</h2>
+            <div class="summary-grid" style="grid-template-columns: 1fr; gap: 24px;">
+                <div class="summary-card card cost-card" style="padding: 32px 24px;">
+                    <div class="summary-icon" style="width: 72px; height: 72px; font-size: 2.5rem;">฿</div>
+                    <div class="summary-details">
+                        <span class="summary-label" style="font-size: 1.1rem;">TOTAL COST</span>
+                        <span id="usage-total-cost" class="summary-value" style="font-size: 2.8rem;">฿0.00</span>
+                    </div>
+                </div>
+                <div class="summary-card card hours-card" style="padding: 32px 24px;">
+                    <div class="summary-icon" style="width: 72px; height: 72px; font-size: 2.5rem;">⏰</div>
+                    <div class="summary-details">
+                        <span class="summary-label" style="font-size: 1.1rem;">TOTAL HOURS</span>
+                        <span id="usage-total-hours" class="summary-value" style="font-size: 2.8rem;">0.00 hrs</span>
+                    </div>
+                </div>
             </div>
-            
-            <section class="premium-metrics-grid">
-                <!-- Card 1: Total Cost -->
-                <div class="premium-metric-card cost-card">
-                    <div class="metric-top">
-                        <div class="icon-circle currency-icon">💰</div>
-                        <span class="metric-title">Total Cost</span>
-                    </div>
-                    <div class="metric-main">
-                        <span class="currency-symbol">฿</span>
-                        <span id="usage-total-cost" class="metric-value">0.00</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: Total Hours -->
-                <div class="premium-metric-card hours-card">
-                    <div class="metric-top">
-                        <div class="icon-circle time-icon">🕒</div>
-                        <span class="metric-title">Total Hours</span>
-                    </div>
-                    <div class="metric-main">
-                        <span id="usage-total-hours" class="metric-value">0.00</span>
-                        <span class="unit-text">hrs</span>
-                    </div>
-                </div>
-
-                <!-- Card 3: Active Devices -->
-                <div class="premium-metric-card devices-card">
-                    <div class="metric-top">
-                        <div class="icon-circle device-icon">💡</div>
-                        <span class="metric-title">Active Devices</span>
-                    </div>
-                    <div class="metric-main">
-                        <span id="usage-active-count" class="metric-value">0</span>
-                        <span class="unit-text">/ 15</span>
-                    </div>
-                </div>
-            </section>
-            
-            <div class="refresh-container">
-                <button id="refresh-usage-btn" class="btn-sleek-outline">
-                    <span class="refresh-icon">↻</span> Refresh Data
-                </button>
-            </div>
-        </div> <!-- End view-usage -->
-
+        </section>
+        
+        <div class="global-controls-secondary" style="justify-content: center; margin-top: 32px;">
+            <button id="refresh-usage-btn" class="btn btn-secondary" style="padding: 16px 32px; border-radius: 30px;">
+                <span style="font-size: 1.2rem; margin-right: 8px;">↻</span> REFRESH DATA
+            </button>
+        </div>
     </div>
 
     <!-- Bottom Navigation Bar -->
-    <nav class="bottom-nav" id="bottom-nav">
+    <nav class="bottom-nav">
         <a href="index.html" class="nav-item">
             <span class="nav-icon">💡</span>
             <span class="nav-label">อุปกรณ์</span>

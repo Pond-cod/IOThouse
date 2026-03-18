@@ -167,7 +167,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    restoreState();
+    if (typeof restoreState === 'function') {
+        restoreState();
+    }
     
     // Initial fetch of active state count
     updateActiveCount();
