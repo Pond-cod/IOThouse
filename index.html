@@ -20,168 +20,201 @@
                 </div>
                 <div id="connection-status" class="status disconnected">Disconnected</div>
             </div>
-            
-            <section class="metrics-container">
-                <div class="metric-card">
-                    <div class="metric-icon">⏰</div>
-                    <div class="metric-details">
-                        <span class="metric-label">Total Hours</span>
-                        <span id="total-hours-display" class="metric-value">0.00 hrs</span>
-                    </div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon">฿</div>
-                    <div class="metric-details">
-                        <span class="metric-label">Total Cost</span>
-                        <span id="total-cost-display" class="metric-value">0.00 ฿</span>
-                    </div>
-                </div>
-            </section>
         </header>
-
-        <section class="global-controls">
-            <a href="report.html" class="btn btn-primary btn-full-width">📊 VIEW FULL REPORTS</a>
-        </section>
-
-        <section class="global-controls-secondary">
-            <button id="btn-all-on" class="btn btn-secondary">Turn On All</button>
-            <button id="btn-all-off" class="btn btn-secondary">Turn Off All</button>
-        </section>
 
         <!-- Lovelace Control Grid -->
         <main class="zones-grid" id="zones-container">
             <!-- FRONT ZONE -->
             <div class="zone-group">
-                <h2 class="zone-group-title">Zone 1: Front Zone</h2>
-                <div class="lights-container">
-                    <div class="light-item" id="zone1-light1">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z1-l1" data-zone="1" data-light="1" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Front 1<br><small>(หน้าบ้าน)</small></span>
-                                <div class="light-stats" id="stats-Zone_1:_Front_Zone_Front_1">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="light-item" id="zone1-light2">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z1-l2" data-zone="1" data-light="2" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Front 2<br><small>(หน้าTV)</small></span>
-                                <div class="light-stats" id="stats-Zone_1:_Front_Zone_Front_2">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h2 class="zone-group-title">Zone 1: Front Zone</h2>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lights-container">
+                        <div class="light-item" id="zone1-light1">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z1-l1" data-zone="1" data-light="1" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Front 1<br><small>(หน้าบ้าน)</small></span>
+                                    <div class="light-stats" id="stats-Zone_1:_Front_Zone_Front_1">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="light-item" id="zone1-light2">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z1-l2" data-zone="1" data-light="2" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Front 2<br><small>(หน้าTV)</small></span>
+                                    <div class="light-stats" id="stats-Zone_1:_Front_Zone_Front_2">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <!-- LIVING ROOM -->
             <div class="zone-group">
-                <h2 class="zone-group-title">Zone 2: Living Room</h2>
-                <div class="lights-container">
-                    <div class="light-item" id="zone2-light1">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z2-l1" data-zone="2" data-light="1" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Living Room 1<br><small>(หน้าโซฟา)</small></span>
-                                <div class="light-stats" id="stats-Zone_2:_Living_Room_Living_Room_1">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="light-item" id="zone2-light2">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z2-l2" data-zone="2" data-light="2" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Living Room 2<br><small>(โต๊ะอาหาร)</small></span>
-                                <div class="light-stats" id="stats-Zone_2:_Living_Room_Living_Room_2">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h2 class="zone-group-title">Zone 2: Living Room</h2>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lights-container">
+                        <div class="light-item" id="zone2-light1">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z2-l1" data-zone="2" data-light="1" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Living Room 1<br><small>(หน้าโซฟา)</small></span>
+                                    <div class="light-stats" id="stats-Zone_2:_Living_Room_Living_Room_1">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="light-item" id="zone2-light2">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z2-l2" data-zone="2" data-light="2" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Living Room 2<br><small>(โต๊ะอาหาร)</small></span>
+                                    <div class="light-stats" id="stats-Zone_2:_Living_Room_Living_Room_2">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- BATHROOM -->
             <div class="zone-group">
-                <h2 class="zone-group-title">Zone 3: Bathroom</h2>
-                <div class="lights-container">
-                    <div class="light-item" id="zone3-light1">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z3-l1" data-zone="3" data-light="1" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Bathroom 1<br><small>(ห้องอาบน้ำ)</small></span>
-                                <div class="light-stats" id="stats-Zone_3:_Bathroom_Bathroom_1">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="light-item" id="zone3-light2">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z3-l2" data-zone="3" data-light="2" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Bathroom 2<br><small>(ห้องส้วม)</small></span>
-                                <div class="light-stats" id="stats-Zone_3:_Bathroom_Bathroom_2">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h2 class="zone-group-title">Zone 3: Bathroom</h2>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lights-container">
+                        <div class="light-item" id="zone3-light1">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z3-l1" data-zone="3" data-light="1" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Bathroom 1<br><small>(ห้องอาบน้ำ)</small></span>
+                                    <div class="light-stats" id="stats-Zone_3:_Bathroom_Bathroom_1">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="light-item" id="zone3-light2">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z3-l2" data-zone="3" data-light="2" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Bathroom 2<br><small>(ห้องส้วม)</small></span>
+                                    <div class="light-stats" id="stats-Zone_3:_Bathroom_Bathroom_2">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- KITCHEN -->
             <div class="zone-group">
-                <h2 class="zone-group-title">Zone 4: Kitchen</h2>
-                <div class="lights-container">
-                    <div class="light-item" id="zone4-light1">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z4-l1" data-zone="4" data-light="1" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Kitchen 1<br><small>(ห้องครัว)</small></span>
-                                <div class="light-stats" id="stats-Zone_4:_Kitchen_Kitchen_1">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h2 class="zone-group-title">Zone 4: Kitchen</h2>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lights-container">
+                        <div class="light-item" id="zone4-light1">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z4-l1" data-zone="4" data-light="1" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Kitchen 1<br><small>(ห้องครัว)</small></span>
+                                    <div class="light-stats" id="stats-Zone_4:_Kitchen_Kitchen_1">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- BEDROOM 1 -->
             <div class="zone-group">
-                <h2 class="zone-group-title">Zone 5: Bedroom 1</h2>
-                <div class="lights-container">
-                    <div class="light-item" id="zone5-light1">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z5-l1" data-zone="5" data-light="1" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Bedroom 1<br><small>(ห้องแรก)</small></span>
-                                <div class="light-stats" id="stats-Zone_5:_Bedroom_1_Bedroom_1">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h2 class="zone-group-title">Zone 5: Bedroom 1</h2>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lights-container">
+                        <div class="light-item" id="zone5-light1">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z5-l1" data-zone="5" data-light="1" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Bedroom 1<br><small>(ห้องแรก)</small></span>
+                                    <div class="light-stats" id="stats-Zone_5:_Bedroom_1_Bedroom_1">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- BEDROOM 2 -->
             <div class="zone-group">
-                <h2 class="zone-group-title">Zone 6: Bedroom 2</h2>
-                <div class="lights-container">
-                    <div class="light-item" id="zone6-light1">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z6-l1" data-zone="6" data-light="1" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">Bedroom 2<br><small>(ห้องกลาง)</small></span>
-                                <div class="light-stats" id="stats-Zone_6:_Bedroom_2_Bedroom_2">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <h2 class="zone-group-title">Zone 6: Bedroom 2</h2>
+                    <span class="accordion-arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lights-container">
+                        <div class="light-item" id="zone6-light1">
+                            <label class="big-toggle-label">
+                                <input type="checkbox" id="toggle-z6-l1" data-zone="6" data-light="1" class="hidden-checkbox">
+                                <div class="toggle-content">
+                                    <span class="icon">💡</span>
+                                    <span class="label-text">Bedroom 2<br><small>(ห้องกลาง)</small></span>
+                                    <div class="light-stats" id="stats-Zone_6:_Bedroom_2_Bedroom_2">0.00 hrs | 0.00 ฿</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
+
+        <hr class="summary-divider">
+
+        <section class="global-controls-secondary">
+            <button id="btn-all-on" class="btn btn-secondary">Turn On All</button>
+            <button id="btn-all-off" class="btn btn-secondary">Turn Off All</button>
+        </section>
+
+        <section class="metrics-container">
+            <div class="metric-card">
+                <div class="metric-icon">⏰</div>
+                <div class="metric-details">
+                    <span class="metric-label">Total Hours</span>
+                    <span id="total-hours-display" class="metric-value">0.00 hrs</span>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">฿</div>
+                <div class="metric-details">
+                    <span class="metric-label">Total Cost</span>
+                    <span id="total-cost-display" class="metric-value">0.00 ฿</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="global-controls">
+            <a href="report.html" class="btn btn-primary btn-full-width">📊 VIEW FULL REPORTS</a>
+        </section>
+
     </div>
 
     <!-- Bottom Navigation Bar -->

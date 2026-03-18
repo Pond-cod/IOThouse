@@ -158,6 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    restoreState();
+
     // Zone-Level Buttons
     document.querySelectorAll('.zone-btn-on').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -201,3 +203,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+/**
+ * Toggles the Accordion Header to drop down the grid tiles cleanly
+ * Calculates the exact scrollHeight to transition max-height seamlessly
+ */
+function toggleAccordion(headerElement) {
+    headerElement.classList.toggle('active');
+    
+    // Find the adjacent .accordion-content wrapper
+    const content = headerElement.nextElementSibling;
+    
+    if (content.style.maxHeight) {
+        // Close it
+        content.style.maxHeight = null;
+        content.style.opacity = 0;
+    } else {
+        // Open it (calculate intrinsic pixel height for CSS transition)
+        content.style.maxHeight = content.scrollHeight + "px";
+        content.style.opacity = 1;
+    }
+}

@@ -258,25 +258,65 @@ h1 .subtitle {
     background: #2C2C2E;
 }
 
-/* Zones Grid */
+/* Zones Accordion Elements */
 .zones-grid {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.zone-group {
+    background: transparent;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2A2A2A;
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition-fast);
+    border: 1px solid var(--border-accent);
+}
+
+.accordion-header:hover {
+    background: #333333;
 }
 
 .zone-group-title {
     font-size: 1.15rem;
     font-weight: 600;
     color: var(--text-main);
-    margin-bottom: 12px;
-    padding-left: 4px;
+    margin-bottom: 0;
+    text-transform: capitalize;
+}
+
+.accordion-arrow {
+    font-size: 1rem;
+    color: var(--text-muted);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.accordion-header.active .accordion-arrow {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .lights-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px; /* Tighter grid matching Lovelace */
+    gap: 12px;
+    padding-top: 16px; /* Space between header and grid when opened */
 }
 
 /* Lovelace Square Tiles */
@@ -379,6 +419,14 @@ h1 .subtitle {
 
 .light-item.active .light-stats {
     opacity: 0.9;
+}
+
+/* Bottom Structure Divider */
+.summary-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 32px 0 24px 0;
 }
 
 /* Bottom Navbar */
