@@ -9,8 +9,9 @@ function logToGoogleSheets(zoneName, lightName, action) {
     fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
+        redirect: 'follow',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain;charset=utf-8'
         },
         body: JSON.stringify({
             zone: zoneName,
@@ -18,8 +19,8 @@ function logToGoogleSheets(zoneName, lightName, action) {
             action: action
         })
     }).then(() => {
-        // Fetch new summary data after logging
-        setTimeout(fetchSummaryData, 1500); // Small delay to allow Google Sheets to process the write
+        // Fetch new summary data immediately
+        fetchSummaryData();
     }).catch(error => console.error('Error logging to Google Sheets:', error));
 }
 
@@ -132,6 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
             message.destinationName = topic;
             client.send(message);
             console.log(`Published to ${topic}: ${payload}`);
+        } else {
+            console.warn("MQTT Disconnected. Command not sent to broker, but logging to Sheets...");
         }
 
         // Log to Google Sheets

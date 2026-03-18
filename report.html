@@ -108,12 +108,25 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .page-title {
             margin: 0;
             font-size: 2rem;
             color: #fff;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .nav-header {
+                flex-direction: column;
+                justify-content: center;
+            }
+            .page-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
