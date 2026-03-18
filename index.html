@@ -6,7 +6,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Pond's Smart Home | Control Panel</title>
+    <title>⚡ Pond's Smart Home | Control Panel</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,20 +14,23 @@
         <!-- Integrated Header & Summary Panel -->
         <header class="integrated-header">
             <div class="header-top">
-                <h1>Pond's Smart Home<br><span class="subtitle">Control Panel</span></h1>
+                <div class="header-titles">
+                    <h1>⚡ Pond's Smart Home</h1>
+                    <span class="subtitle">Control Panel &nbsp;&bull;&nbsp; All Devices: 15</span>
+                </div>
                 <div id="connection-status" class="status disconnected">Disconnected</div>
             </div>
             
             <section class="metrics-container">
                 <div class="metric-card">
-                    <div class="metric-icon">⏱️</div>
+                    <div class="metric-icon">⏰</div>
                     <div class="metric-details">
-                        <span class="metric-label">Total Usage</span>
+                        <span class="metric-label">Total Hours</span>
                         <span id="total-hours-display" class="metric-value">0.00 hrs</span>
                     </div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-icon">💰</div>
+                    <div class="metric-icon">฿</div>
                     <div class="metric-details">
                         <span class="metric-label">Total Cost</span>
                         <span id="total-cost-display" class="metric-value">0.00 ฿</span>
@@ -45,18 +48,29 @@
             <button id="btn-all-off" class="btn btn-secondary">Turn Off All</button>
         </section>
 
+        <!-- Lovelace Control Grid -->
         <main class="zones-grid" id="zones-container">
             <!-- FRONT ZONE -->
             <div class="zone-group">
-                <h2 class="zone-group-title">FRONT ZONE</h2>
+                <h2 class="zone-group-title">Zone 1: Front Zone</h2>
                 <div class="lights-container">
                     <div class="light-item" id="zone1-light1">
                         <label class="big-toggle-label">
                             <input type="checkbox" id="toggle-z1-l1" data-zone="1" data-light="1" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">FRONT 1<br><small>(หน้าบ้าน)</small></span>
-                                <div class="light-stats" id="stats-หน้าบ้าน/หน้าTV_หน้าบ้าน">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Front 1<br><small>(หน้าบ้าน)</small></span>
+                                <div class="light-stats" id="stats-Zone_1:_Front_Zone_Front_1">0.00 hrs | 0.00 ฿</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="light-item" id="zone1-light2">
+                        <label class="big-toggle-label">
+                            <input type="checkbox" id="toggle-z1-l2" data-zone="1" data-light="2" class="hidden-checkbox">
+                            <div class="toggle-content">
+                                <span class="icon">💡</span>
+                                <span class="label-text">Front 2<br><small>(หน้าTV)</small></span>
+                                <div class="light-stats" id="stats-Zone_1:_Front_Zone_Front_2">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -65,25 +79,15 @@
             
             <!-- LIVING ROOM -->
             <div class="zone-group">
-                <h2 class="zone-group-title">LIVING ROOM</h2>
+                <h2 class="zone-group-title">Zone 2: Living Room</h2>
                 <div class="lights-container">
-                    <div class="light-item" id="zone1-light2">
-                        <label class="big-toggle-label">
-                            <input type="checkbox" id="toggle-z1-l2" data-zone="1" data-light="2" class="hidden-checkbox">
-                            <div class="toggle-content">
-                                <span class="icon">💡</span>
-                                <span class="label-text">LIVING 2<br><small>(หน้าTV)</small></span>
-                                <div class="light-stats" id="stats-หน้าบ้าน/หน้าTV_หน้าTV">0.00 hrs | 0.00 ฿</div>
-                            </div>
-                        </label>
-                    </div>
                     <div class="light-item" id="zone2-light1">
                         <label class="big-toggle-label">
                             <input type="checkbox" id="toggle-z2-l1" data-zone="2" data-light="1" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">CENTER 1<br><small>(ดวงหน้า)</small></span>
-                                <div class="light-stats" id="stats-กลางบ้าน_ดวงหน้า">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Living Room 1<br><small>(หน้าโซฟา)</small></span>
+                                <div class="light-stats" id="stats-Zone_2:_Living_Room_Living_Room_1">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -92,8 +96,8 @@
                             <input type="checkbox" id="toggle-z2-l2" data-zone="2" data-light="2" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">CENTER 2<br><small>(ดวงหลัง)</small></span>
-                                <div class="light-stats" id="stats-กลางบ้าน_ดวงหลัง">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Living Room 2<br><small>(โต๊ะอาหาร)</small></span>
+                                <div class="light-stats" id="stats-Zone_2:_Living_Room_Living_Room_2">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -102,15 +106,15 @@
 
             <!-- BATHROOM -->
             <div class="zone-group">
-                <h2 class="zone-group-title">BATHROOM</h2>
+                <h2 class="zone-group-title">Zone 3: Bathroom</h2>
                 <div class="lights-container">
                     <div class="light-item" id="zone3-light1">
                         <label class="big-toggle-label">
                             <input type="checkbox" id="toggle-z3-l1" data-zone="3" data-light="1" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">BATH 1<br><small>(ห้องอาบ)</small></span>
-                                <div class="light-stats" id="stats-ห้องน้ำ_ห้องอาบ">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Bathroom 1<br><small>(ห้องอาบน้ำ)</small></span>
+                                <div class="light-stats" id="stats-Zone_3:_Bathroom_Bathroom_1">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -119,8 +123,8 @@
                             <input type="checkbox" id="toggle-z3-l2" data-zone="3" data-light="2" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">BATH 2<br><small>(ห้องส้วม)</small></span>
-                                <div class="light-stats" id="stats-ห้องน้ำ_ห้องส้วม">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Bathroom 2<br><small>(ห้องส้วม)</small></span>
+                                <div class="light-stats" id="stats-Zone_3:_Bathroom_Bathroom_2">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -129,15 +133,15 @@
 
             <!-- KITCHEN -->
             <div class="zone-group">
-                <h2 class="zone-group-title">KITCHEN</h2>
+                <h2 class="zone-group-title">Zone 4: Kitchen</h2>
                 <div class="lights-container">
                     <div class="light-item" id="zone4-light1">
                         <label class="big-toggle-label">
                             <input type="checkbox" id="toggle-z4-l1" data-zone="4" data-light="1" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">KITCHEN 1<br><small>(ครัว)</small></span>
-                                <div class="light-stats" id="stats-ครัว_ครัว">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Kitchen 1<br><small>(ห้องครัว)</small></span>
+                                <div class="light-stats" id="stats-Zone_4:_Kitchen_Kitchen_1">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -146,15 +150,15 @@
 
             <!-- BEDROOM 1 -->
             <div class="zone-group">
-                <h2 class="zone-group-title">BEDROOM 1</h2>
+                <h2 class="zone-group-title">Zone 5: Bedroom 1</h2>
                 <div class="lights-container">
                     <div class="light-item" id="zone5-light1">
                         <label class="big-toggle-label">
                             <input type="checkbox" id="toggle-z5-l1" data-zone="5" data-light="1" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">BED 1<br><small>(ห้องแรก)</small></span>
-                                <div class="light-stats" id="stats-ห้องแรก_ห้องแรก">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Bedroom 1<br><small>(ห้องแรก)</small></span>
+                                <div class="light-stats" id="stats-Zone_5:_Bedroom_1_Bedroom_1">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -163,15 +167,15 @@
 
             <!-- BEDROOM 2 -->
             <div class="zone-group">
-                <h2 class="zone-group-title">BEDROOM 2</h2>
+                <h2 class="zone-group-title">Zone 6: Bedroom 2</h2>
                 <div class="lights-container">
                     <div class="light-item" id="zone6-light1">
                         <label class="big-toggle-label">
                             <input type="checkbox" id="toggle-z6-l1" data-zone="6" data-light="1" class="hidden-checkbox">
                             <div class="toggle-content">
                                 <span class="icon">💡</span>
-                                <span class="label-text">BED 2<br><small>(ห้องกลาง)</small></span>
-                                <div class="light-stats" id="stats-ห้องกลาง_ห้องกลาง">0.00 hrs | 0.00 ฿</div>
+                                <span class="label-text">Bedroom 2<br><small>(ห้องกลาง)</small></span>
+                                <div class="light-stats" id="stats-Zone_6:_Bedroom_2_Bedroom_2">0.00 hrs | 0.00 ฿</div>
                             </div>
                         </label>
                     </div>
@@ -179,6 +183,26 @@
             </div>
         </main>
     </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">💡</span>
+            <span class="nav-label">Devices</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">🎬</span>
+            <span class="nav-label">Scenes</span>
+        </a>
+        <a href="report.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Reports</span>
+        </a>
+    </nav>
 
     <!-- Paho MQTT client from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
