@@ -460,7 +460,7 @@ h1 .subtitle {
 }
 
 .nav-item.active {
-    color: var(--lovelace-blue);
+    color: #007BFF;
 }
 
 .nav-item .nav-icon {

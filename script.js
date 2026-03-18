@@ -202,6 +202,34 @@ document.addEventListener("DOMContentLoaded", () => {
             logToGoogleSheets('All', 'All', 'OFF');
         });
     }
+
+    // Tab Switching Logic
+    const navItems = document.querySelectorAll('.bottom-nav .nav-item[data-target]');
+    const views = document.querySelectorAll('.view-section');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Remove active class from all nav items and hide all views
+            navItems.forEach(nav => nav.classList.remove('active'));
+            views.forEach(view => {
+                view.classList.remove('active');
+                view.style.display = 'none';
+            });
+
+            // Add active class to clicked nav item
+            item.classList.add('active');
+
+            // Show targeted view
+            const targetId = item.getAttribute('data-target');
+            const targetView = document.getElementById(targetId);
+            if (targetView) {
+                targetView.classList.add('active');
+                targetView.style.display = 'block';
+            }
+        });
+    });
 });
 
 /**
