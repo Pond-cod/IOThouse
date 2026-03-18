@@ -1,8 +1,8 @@
 // Configuration
 const MQTT_BROKER = "broker.hivemq.com";
-const MQTT_PORT = 8000;
+const MQTT_PORT = 8884;
 const MQTT_PATH = "/mqtt";
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnaIcvMvpqPkN3DPWy9b1arGWLZorwWpiYE_rp8D5Q0vUx8_mLofGppEU2fdY0rUtckw/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjMYHS9q7Qh1HC58IK8T8Rb33Q178Q81PUk2a5TkL6aR085EbYSkGnwkJ8jAQ9t9zkkA/exec';
 
 // Logger Function
 function logToGoogleSheets(zoneName, lightName, action) {
@@ -64,7 +64,7 @@ function connect() {
     client.connect({
         onSuccess: onConnect,
         onFailure: onFailure,
-        useSSL: false
+        useSSL: true
     });
 }
 
