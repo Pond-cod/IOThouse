@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>⚡ Pond's Smart Home | Usage Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Integrated Header & Summary Panel -->
+        <header class="integrated-header">
+            <div class="header-top">
+                <div class="header-titles">
+                    <h1>⚡ Pond's Smart Home</h1>
+                    <span class="subtitle">Usage Dashboard</span>
+                </div>
+                <div id="connection-status" class="status disconnected">Disconnected</div>
+            </div>
+        </header>
+
+        <!-- SPA view: Usage -->
+        <div id="view-usage" class="view-section active">
+            <div class="usage-header">
+                <h2>Energy Overview</h2>
+                <p>Current Billing Cycle</p>
+            </div>
+            
+            <section class="premium-metrics-grid">
+                <!-- Card 1: Total Cost -->
+                <div class="premium-metric-card cost-card">
+                    <div class="metric-top">
+                        <div class="icon-circle currency-icon">💰</div>
+                        <span class="metric-title">Total Cost</span>
+                    </div>
+                    <div class="metric-main">
+                        <span class="currency-symbol">฿</span>
+                        <span id="usage-total-cost" class="metric-value">0.00</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Total Hours -->
+                <div class="premium-metric-card hours-card">
+                    <div class="metric-top">
+                        <div class="icon-circle time-icon">🕒</div>
+                        <span class="metric-title">Total Hours</span>
+                    </div>
+                    <div class="metric-main">
+                        <span id="usage-total-hours" class="metric-value">0.00</span>
+                        <span class="unit-text">hrs</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Active Devices -->
+                <div class="premium-metric-card devices-card">
+                    <div class="metric-top">
+                        <div class="icon-circle device-icon">💡</div>
+                        <span class="metric-title">Active Devices</span>
+                    </div>
+                    <div class="metric-main">
+                        <span id="usage-active-count" class="metric-value">0</span>
+                        <span class="unit-text">/ 15</span>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="refresh-container">
+                <button id="refresh-usage-btn" class="btn-sleek-outline">
+                    <span class="refresh-icon">↻</span> Refresh Data
+                </button>
+            </div>
+        </div> <!-- End view-usage -->
+
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">💡</span>
+            <span class="nav-label">อุปกรณ์</span>
+        </a>
+        <a href="usage.html" class="nav-item active">
+            <span class="nav-icon">⚡</span>
+            <span class="nav-label">การใช้งาน</span>
+        </a>
+        <a href="report.html" class="nav-item">
+            <span class="nav-icon">📄</span>
+            <span class="nav-label">รายงาน</span>
+        </a>
+    </nav>
+
+    <!-- Paho MQTT client from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

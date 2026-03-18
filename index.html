@@ -197,67 +197,16 @@
         </section>
         </div> <!-- End view-devices -->
 
-        <!-- SPA view: Usage -->
-        <div id="view-usage" class="view-section" style="display: none;">
-            <div class="usage-header">
-                <h2>Energy Overview</h2>
-                <p>Current Billing Cycle</p>
-            </div>
-            
-            <section class="premium-metrics-grid">
-                <!-- Card 1: Total Cost -->
-                <div class="premium-metric-card cost-card">
-                    <div class="metric-top">
-                        <div class="icon-circle currency-icon">💰</div>
-                        <span class="metric-title">Total Cost</span>
-                    </div>
-                    <div class="metric-main">
-                        <span class="currency-symbol">฿</span>
-                        <span id="usage-total-cost" class="metric-value">0.00</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: Total Hours -->
-                <div class="premium-metric-card hours-card">
-                    <div class="metric-top">
-                        <div class="icon-circle time-icon">🕒</div>
-                        <span class="metric-title">Total Hours</span>
-                    </div>
-                    <div class="metric-main">
-                        <span id="usage-total-hours" class="metric-value">0.00</span>
-                        <span class="unit-text">hrs</span>
-                    </div>
-                </div>
-
-                <!-- Card 3: Active Devices -->
-                <div class="premium-metric-card devices-card">
-                    <div class="metric-top">
-                        <div class="icon-circle device-icon">💡</div>
-                        <span class="metric-title">Active Devices</span>
-                    </div>
-                    <div class="metric-main">
-                        <span id="usage-active-count" class="metric-value">0</span>
-                        <span class="unit-text">/ 15</span>
-                    </div>
-                </div>
-            </section>
-            
-            <div class="refresh-container">
-                <button id="refresh-usage-btn" class="btn-sleek-outline">
-                    <span class="refresh-icon">↻</span> Refresh Data
-                </button>
-            </div>
-        </div> <!-- End view-usage -->
 
     </div>
 
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav" id="bottom-nav">
-        <a href="#" class="nav-item active" data-target="view-devices">
+        <a href="index.html" class="nav-item active">
             <span class="nav-icon">💡</span>
             <span class="nav-label">อุปกรณ์</span>
         </a>
-        <a href="#" class="nav-item" data-target="view-usage">
+        <a href="usage.html" class="nav-item">
             <span class="nav-icon">⚡</span>
             <span class="nav-label">การใช้งาน</span>
         </a>
