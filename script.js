@@ -29,8 +29,10 @@ function fetchSummaryData() {
     fetch(GOOGLE_SCRIPT_URL)
         .then(response => response.json())
         .then(data => {
-            document.getElementById('total-hours-display').innerText = (data.totalHours || "0.00") + ' hrs';
-            document.getElementById('total-cost-display').innerText = (data.totalCost || "0.00") + ' ฿';
+            const hoursEl = document.getElementById('usage-total-hours');
+            if (hoursEl) hoursEl.innerText = (data.totalHours || "0.00");
+            const costEl = document.getElementById('usage-total-cost');
+            if (costEl) costEl.innerText = (data.totalCost || "0.00");
             
             // Individual Light Stats
             if (data.individual) {
@@ -109,6 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial fetch of summary data
     fetchSummaryData();
 
+    // Function to calculate and update active devices count
+    function updateActiveCount() {
+        const activeCount = document.querySelectorAll('#view-devices input[type="checkbox"]:checked').length;
+        const countEl = document.getElementById('usage-active-count');
+        if (countEl) countEl.innerText = activeCount;
+    }
+
     // Core logic for updating state and publishing
     function setLightState(zId, lId, isOn) {
         // Find DOM Elements
@@ -145,6 +154,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 logToGoogleSheets(zone.name, light.name, isOn ? "ON" : "OFF");
             }
         }
+        
+        // Update Active Count
+        updateActiveCount();
     }
 
     // Direct Toggle Event Listeners
@@ -159,6 +171,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     restoreState();
+    
+    // Initial fetch of active state count
+    updateActiveCount();
 
     // Zone-Level Buttons
     document.querySelectorAll('.zone-btn-on').forEach(btn => {
@@ -200,6 +215,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 zone.lights.forEach(l => setLightState(zone.id, l.id, false));
             });
             logToGoogleSheets('All', 'All', 'OFF');
+        });
+    }
+
+    // Refresh Data Button
+    const refreshBtn = document.getElementById('refresh-usage-btn');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            fetchSummaryData();
         });
     }
 
