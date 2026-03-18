@@ -30,9 +30,9 @@ function fetchSummaryData() {
         .then(response => response.json())
         .then(data => {
             const hoursEl = document.getElementById('usage-total-hours');
-            if (hoursEl) hoursEl.innerText = (data.totalHours || "0.00");
+            if (hoursEl) hoursEl.innerText = (data.totalHours || "0.00") + " hrs";
             const costEl = document.getElementById('usage-total-cost');
-            if (costEl) costEl.innerText = (data.totalCost || "0.00");
+            if (costEl) costEl.innerText = "฿" + (data.totalCost || "0.00");
             
             // Individual Light Stats
             if (data.individual) {
@@ -98,12 +98,9 @@ function onConnectionLost(responseObject) {
 
 // Zone Configuration
 const zoneConfig = [
-    { id: 1, name: "หน้าบ้าน/หน้าTV", lights: [{ id: 1, name: "หน้าบ้าน" }, { id: 2, name: "หน้าTV" }] },
-    { id: 2, name: "กลางบ้าน", lights: [{ id: 1, name: "ดวงหน้า" }, { id: 2, name: "ดวงหลัง" }] },
-    { id: 3, name: "ห้องน้ำ", lights: [{ id: 1, name: "ห้องอาบ" }, { id: 2, name: "ห้องส้วม" }] },
-    { id: 4, name: "ครัว", lights: [{ id: 1, name: "ครัว" }] },
-    { id: 5, name: "ห้องแรก", lights: [{ id: 1, name: "ห้องแรก" }] },
-    { id: 6, name: "ห้องกลาง", lights: [{ id: 1, name: "ห้องกลาง" }] }
+    { id: 1, name: "Front Zone", lights: [{ id: 1, name: "Front 1" }, { id: 2, name: "Front 2" }] },
+    { id: 2, name: "Living Room", lights: [{ id: 1, name: "Living Room 1" }, { id: 2, name: "Living Room 2" }] },
+    { id: 3, name: "Bathroom", lights: [{ id: 1, name: "Bathroom 1" }] }
 ];
 
 // Generate UI and Set Event Listeners
@@ -113,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Function to calculate and update active devices count
     function updateActiveCount() {
-        const activeCount = document.querySelectorAll('#view-devices input[type="checkbox"]:checked').length;
+        const activeCount = document.querySelectorAll('.hidden-checkbox:checked').length;
         const countEl = document.getElementById('usage-active-count');
         if (countEl) countEl.innerText = activeCount;
     }

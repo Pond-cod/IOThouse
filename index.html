@@ -11,208 +11,121 @@
 </head>
 <body>
     <div class="container">
-        <!-- Integrated Header & Summary Panel -->
-        <header class="integrated-header">
+        <!-- Header -->
+        <header class="integrated-header card">
             <div class="header-top">
                 <div class="header-titles">
-                    <h1>⚡ Pond's Smart Home</h1>
-                    <span class="subtitle">Control Panel &nbsp;&bull;&nbsp; All Devices: 15</span>
+                    <h1>⚡ Pond's Smart Home | Control Panel</h1>
+                    <span class="subtitle">All Devices: 15</span>
                 </div>
                 <div id="connection-status" class="status disconnected">Disconnected</div>
             </div>
         </header>
 
-        <!-- SPA view: Devices -->
-        <div id="view-devices" class="view-section active">
-        <!-- Lovelace Control Grid -->
-        <main class="zones-grid" id="zones-container">
-            <!-- FRONT ZONE -->
-            <div class="zone-group">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <h2 class="zone-group-title">หน้าบ้าน/หน้าTV</h2>
-                    <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <div class="lights-container">
-                        <div class="light-item" id="zone1-light1">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z1-l1" data-zone="1" data-light="1" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">หน้าบ้าน</span>
-                                    <div class="light-stats" id="stats-หน้าบ้าน/หน้าTV_หน้าบ้าน">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="light-item" id="zone1-light2">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z1-l2" data-zone="1" data-light="2" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">หน้าTV</span>
-                                    <div class="light-stats" id="stats-หน้าบ้าน/หน้าTV_หน้าTV">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
+        <!-- Summary Cards -->
+        <section class="summary-section">
+            <div class="summary-grid">
+                <div class="summary-card card hours-card">
+                    <div class="summary-icon">⏰</div>
+                    <div class="summary-details">
+                        <span class="summary-label">Total Hours</span>
+                        <span id="usage-total-hours" class="summary-value">125.40 hrs</span>
                     </div>
+                </div>
+                <div class="summary-card card cost-card">
+                    <div class="summary-icon">฿</div>
+                    <div class="summary-details">
+                        <span class="summary-label">Total Cost</span>
+                        <span id="usage-total-cost" class="summary-value">฿564.30</span>
+                    </div>
+                </div>
+            </div>
+            <a href="report.html" class="btn btn-primary btn-full-width">📊 VIEW FULL REPORTS</a>
+        </section>
+
+        <!-- Control Section -->
+        <main class="zones-grid" id="zones-container">
+            <!-- Zone 1: Front Zone -->
+            <div class="zone-group">
+                <h2 class="zone-title">Zone 1: Front Zone</h2>
+                <div class="lights-grid">
+                    <label class="switch-card" id="zone1-light1">
+                        <input type="checkbox" class="hidden-checkbox" data-zone="1" data-light="1">
+                        <div class="switch-content">
+                            <span class="switch-icon">💡</span>
+                            <span class="switch-label">Front 1<br><small>(หน้าบ้าน)</small></span>
+                        </div>
+                    </label>
+                    <label class="switch-card" id="zone1-light2">
+                        <input type="checkbox" class="hidden-checkbox" data-zone="1" data-light="2">
+                        <div class="switch-content">
+                            <span class="switch-icon">💡</span>
+                            <span class="switch-label">Front 2<br><small>(หน้าTV)</small></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Zone 2: Living Room -->
+            <div class="zone-group">
+                <h2 class="zone-title">Zone 2: Living Room</h2>
+                <div class="lights-grid">
+                    <label class="switch-card" id="zone2-light1">
+                        <input type="checkbox" class="hidden-checkbox" data-zone="2" data-light="1">
+                        <div class="switch-content">
+                            <span class="switch-icon">💡</span>
+                            <span class="switch-label">Living Room 1<br><small>(หน้าโซฟา)</small></span>
+                        </div>
+                    </label>
+                    <label class="switch-card" id="zone2-light2">
+                        <input type="checkbox" class="hidden-checkbox" data-zone="2" data-light="2">
+                        <div class="switch-content">
+                            <span class="switch-icon">💡</span>
+                            <span class="switch-label">Living Room 2<br><small>(โต๊ะอาหาร)</small></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Zone 3: Bathroom -->
+            <div class="zone-group">
+                <h2 class="zone-title">Bathroom</h2>
+                <div class="lights-grid">
+                    <label class="switch-card" id="zone3-light1">
+                        <input type="checkbox" class="hidden-checkbox" data-zone="3" data-light="1">
+                        <div class="switch-content">
+                            <span class="switch-icon">💡</span>
+                            <span class="switch-label">Bathroom 1<br><small>(ห้องอาบน้ำ)</small></span>
+                        </div>
+                    </label>
                 </div>
             </div>
             
-            <!-- LIVING ROOM -->
-            <div class="zone-group">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <h2 class="zone-group-title">กลางบ้าน</h2>
-                    <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <div class="lights-container">
-                        <div class="light-item" id="zone2-light1">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z2-l1" data-zone="2" data-light="1" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">ดวงหน้า</span>
-                                    <div class="light-stats" id="stats-กลางบ้าน_ดวงหน้า">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="light-item" id="zone2-light2">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z2-l2" data-zone="2" data-light="2" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">ดวงหลัง</span>
-                                    <div class="light-stats" id="stats-กลางบ้าน_ดวงหลัง">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BATHROOM -->
-            <div class="zone-group">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <h2 class="zone-group-title">ห้องน้ำ</h2>
-                    <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <div class="lights-container">
-                        <div class="light-item" id="zone3-light1">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z3-l1" data-zone="3" data-light="1" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">ห้องอาบ</span>
-                                    <div class="light-stats" id="stats-ห้องน้ำ_ห้องอาบ">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="light-item" id="zone3-light2">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z3-l2" data-zone="3" data-light="2" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">ห้องส้วม</span>
-                                    <div class="light-stats" id="stats-ห้องน้ำ_ห้องส้วม">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- KITCHEN -->
-            <div class="zone-group">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <h2 class="zone-group-title">ครัว</h2>
-                    <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <div class="lights-container">
-                        <div class="light-item" id="zone4-light1">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z4-l1" data-zone="4" data-light="1" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">ครัว</span>
-                                    <div class="light-stats" id="stats-ครัว_ครัว">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BEDROOM 1 -->
-            <div class="zone-group">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <h2 class="zone-group-title">ห้องแรก</h2>
-                    <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <div class="lights-container">
-                        <div class="light-item" id="zone5-light1">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z5-l1" data-zone="5" data-light="1" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">ห้องแรก</span>
-                                    <div class="light-stats" id="stats-ห้องแรก_ห้องแรก">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BEDROOM 2 -->
-            <div class="zone-group">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <h2 class="zone-group-title">ห้องกลาง</h2>
-                    <span class="accordion-arrow">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <div class="lights-container">
-                        <div class="light-item" id="zone6-light1">
-                            <label class="big-toggle-label">
-                                <input type="checkbox" id="toggle-z6-l1" data-zone="6" data-light="1" class="hidden-checkbox">
-                                <div class="toggle-content">
-                                    <span class="icon">💡</span>
-                                    <span class="label-text">ห้องกลาง</span>
-                                    <div class="light-stats" id="stats-ห้องกลาง_ห้องกลาง">0.00 hrs | 0.00 ฿</div>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+            <!-- Global Controls -->
+            <div class="global-controls-secondary">
+                <button id="btn-all-on" class="btn btn-secondary">TURN ALL ON</button>
+                <button id="btn-all-off" class="btn btn-secondary">TURN ALL OFF</button>
             </div>
         </main>
-
-        <hr class="summary-divider">
-
-        <section class="global-controls-secondary">
-            <button id="btn-all-on" class="btn btn-secondary">Turn On All</button>
-            <button id="btn-all-off" class="btn btn-secondary">Turn Off All</button>
-        </section>
-        </div> <!-- End view-devices -->
-
-
     </div>
 
     <!-- Bottom Navigation Bar -->
-    <nav class="bottom-nav" id="bottom-nav">
+    <nav class="bottom-nav">
         <a href="index.html" class="nav-item active">
-            <span class="nav-icon">💡</span>
-            <span class="nav-label">อุปกรณ์</span>
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
         </a>
-        <a href="usage.html" class="nav-item">
-            <span class="nav-icon">⚡</span>
-            <span class="nav-label">การใช้งาน</span>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">💡</span>
+            <span class="nav-label">Devices</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span class="nav-icon">🎬</span>
+            <span class="nav-label">Scenes</span>
         </a>
         <a href="report.html" class="nav-item">
-            <span class="nav-icon">📄</span>
-            <span class="nav-label">รายงาน</span>
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Reports</span>
         </a>
     </nav>
 
