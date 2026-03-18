@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pond's Minimal Smart Home</title>
+    <style>
+        /* ธีมสว่าง สะอาดตา */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #F4F5F7; /* สีพื้นหลังเทาอ่อนมากๆ ให้ดูมีมิติ */
+            color: #1D1D1F; /* สีตัวหนังสือเทาเข้ม (ไม่ดำสนิท) */
+            margin: 0; 
+            padding: 24px; 
+        }
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 30px; 
+        }
+        .status-badge { 
+            background: #E8F5E9; color: #2E7D32; 
+            padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+        }
+        .zone-title { 
+            font-size: 17px; font-weight: 600; color: #86868B; 
+            margin-bottom: 15px; padding-bottom: 8px; 
+        }
+        .grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; 
+            margin-bottom: 35px; 
+        }
+        /* ปุ่มสไตล์ Minimalism ขาวสะอาด เงาบางๆ */
+        .card { 
+            background-color: #FFFFFF; 
+            border-radius: 20px; 
+            padding: 20px; 
+            display: flex; flex-direction: column; justify-content: space-between; 
+            height: 100px; box-sizing: border-box; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* เงาบางเฉียบ */
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        /* สถานะตอนเปิดไฟ (เน้นสีสันมินิมอล) */
+        .card.active { 
+            background-color: #F0F7FF; /* พื้นหลังอมฟ้าอ่อนๆ */
+            border: 1px solid #007AFF; /* ขอบฟ้า Apple */
+            color: #007AFF;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15); 
+        }
+        .card .icon { font-size: 28px; margin-bottom: 12px; }
+        .card .name { font-weight: 600; font-size: 15px; margin-bottom: 4px; color: inherit; }
+        .card .state { font-size: 12px; color: #86868B; }
+        .card.active .state { color: #007AFF; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2 style="margin: 0; font-weight: 700;">Home</h2>
+        <span class="status-badge">● CONNECTED</span>
+    </div>
+
+    <div class="zone-title">หน้าบ้าน</div>
+    <div class="grid">
+        <div class="card active">
+            <div class="icon">💡</div>
+            <div>
+                <div class="name">ดวงหน้าบ้าน</div>
+                <div class="state">ON</div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="icon">⚪</div>
+            <div>
+                <div class="name">ดวงหน้า TV</div>
+                <div class="state">OFF</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
