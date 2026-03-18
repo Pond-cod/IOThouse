@@ -96,12 +96,12 @@ function onConnectionLost(responseObject) {
 
 // Zone Configuration
 const zoneConfig = [
-    { id: 1, name: "Zone 1: Front Zone", lights: [{ id: 1, name: "Front 1" }, { id: 2, name: "Front 2" }] },
-    { id: 2, name: "Zone 2: Living Room", lights: [{ id: 1, name: "Living Room 1" }, { id: 2, name: "Living Room 2" }] },
-    { id: 3, name: "Zone 3: Bathroom", lights: [{ id: 1, name: "Bathroom 1" }, { id: 2, name: "Bathroom 2" }] },
-    { id: 4, name: "Zone 4: Kitchen", lights: [{ id: 1, name: "Kitchen 1" }] },
-    { id: 5, name: "Zone 5: Bedroom 1", lights: [{ id: 1, name: "Bedroom 1" }] },
-    { id: 6, name: "Zone 6: Bedroom 2", lights: [{ id: 1, name: "Bedroom 2" }] }
+    { id: 1, name: "หน้าบ้าน/หน้าTV", lights: [{ id: 1, name: "หน้าบ้าน" }, { id: 2, name: "หน้าTV" }] },
+    { id: 2, name: "กลางบ้าน", lights: [{ id: 1, name: "ดวงหน้า" }, { id: 2, name: "ดวงหลัง" }] },
+    { id: 3, name: "ห้องน้ำ", lights: [{ id: 1, name: "ห้องอาบ" }, { id: 2, name: "ห้องส้วม" }] },
+    { id: 4, name: "ครัว", lights: [{ id: 1, name: "ครัว" }] },
+    { id: 5, name: "ห้องแรก", lights: [{ id: 1, name: "ห้องแรก" }] },
+    { id: 6, name: "ห้องกลาง", lights: [{ id: 1, name: "ห้องกลาง" }] }
 ];
 
 // Generate UI and Set Event Listeners
