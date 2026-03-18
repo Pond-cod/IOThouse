@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             if (badge) {
                 if (activeInZone > 0) {
-                    badge.textContent = activeInZone + ' ON';
+                    badge.textContent = '💡 ' + activeInZone;
                     badge.classList.add('visible');
                     group.classList.add('has-active');
                 } else {
@@ -141,11 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Core logic for updating state and publishing
     function setLightState(zId, lId, isOn) {
-        // Find DOM Elements
-        const toggle = document.getElementById(`toggle-z${zId}-l${lId}`);
+        // Find DOM Elements by data attributes
+        const toggle = document.querySelector(`.hidden-checkbox[data-zone="${zId}"][data-light="${lId}"]`);
         const lightItem = document.getElementById(`zone${zId}-light${lId}`);
 
-        if (!toggle || !lightItem) return;
+        if (!toggle) return;
 
         // Visual change
         toggle.checked = isOn;
