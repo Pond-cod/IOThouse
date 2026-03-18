@@ -6,46 +6,43 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>⚡ Pond's Smart Home | Usage Dashboard</title>
+    <title>⚡ Pond's Smart Home | Usage</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- Header -->
-        <header class="integrated-header card">
+        <header class="integrated-header">
             <div class="header-top">
                 <div class="header-titles">
-                    <h1>⚡ Pond's Smart Home | Usage</h1>
-                    <span class="subtitle">Energy Monitoring</span>
+                    <h1>Usage</h1>
                 </div>
-                <div id="connection-status" class="status connected" style="visibility: hidden;">Online</div>
             </div>
         </header>
 
         <!-- Summary Cards -->
         <section class="summary-section">
-            <h2 class="zone-title" style="border: none; margin-bottom: 24px;">Current Billing Cycle</h2>
-            <div class="summary-grid" style="grid-template-columns: 1fr; gap: 24px;">
-                <div class="summary-card card cost-card" style="padding: 32px 24px;">
-                    <div class="summary-icon" style="width: 72px; height: 72px; font-size: 2.5rem;">฿</div>
+            <div class="summary-grid" style="grid-template-columns: 1fr;">
+                <div class="summary-card cost-card">
+                    <div class="summary-icon">💰</div>
                     <div class="summary-details">
-                        <span class="summary-label" style="font-size: 1.1rem;">TOTAL COST</span>
-                        <span id="usage-total-cost" class="summary-value" style="font-size: 2.8rem;">฿0.00</span>
+                        <span class="summary-label">Total Cost</span>
+                        <span id="usage-total-cost" class="summary-value">฿0.00</span>
                     </div>
                 </div>
-                <div class="summary-card card hours-card" style="padding: 32px 24px;">
-                    <div class="summary-icon" style="width: 72px; height: 72px; font-size: 2.5rem;">⏰</div>
+                <div class="summary-card hours-card">
+                    <div class="summary-icon">⏱️</div>
                     <div class="summary-details">
-                        <span class="summary-label" style="font-size: 1.1rem;">TOTAL HOURS</span>
-                        <span id="usage-total-hours" class="summary-value" style="font-size: 2.8rem;">0.00 hrs</span>
+                        <span class="summary-label">Total Hours</span>
+                        <span id="usage-total-hours" class="summary-value">0.00 hrs</span>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <div class="global-controls-secondary" style="justify-content: center; margin-top: 32px;">
-            <button id="refresh-usage-btn" class="btn btn-secondary" style="padding: 16px 32px; border-radius: 30px;">
-                <span style="font-size: 1.2rem; margin-right: 8px;">↻</span> REFRESH DATA
+
+        <div class="global-controls-secondary" style="justify-content: center;">
+            <button id="refresh-usage-btn" class="btn btn-secondary" style="width: 100%;">
+                ↻ REFRESH DATA
             </button>
         </div>
     </div>
