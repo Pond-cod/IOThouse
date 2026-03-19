@@ -2,7 +2,7 @@
 const MQTT_BROKER = "broker.hivemq.com";
 const MQTT_PORT = 8884;
 const MQTT_PATH = "/mqtt";
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjMYHS9q7Qh1HC58IK8T8Rb33Q178Q81PUk2a5TkL6aR085EbYSkGnwkJ8jAQ9t9zkkA/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2rEX2JVVWgrmlh5GaUwOM-1QDgFO6etcpgWtr_ShJpkAaJHHIGAu_abJfgom_YxcCiw/exec';
 
 // Logger Function
 function logToGoogleSheets(zoneName, lightName, action) {
@@ -33,7 +33,7 @@ function fetchSummaryData() {
             if (hoursEl) hoursEl.innerText = (data.totalHours || "0.00") + " hrs";
             const costEl = document.getElementById('usage-total-cost');
             if (costEl) costEl.innerText = "฿" + (data.totalCost || "0.00");
-            
+
             // Individual Light Stats
             if (data.individual) {
                 for (const [key, stats] of Object.entries(data.individual)) {
@@ -64,25 +64,50 @@ connect();
 
 function connect() {
     console.log(`Connecting to ${MQTT_BROKER}:${MQTT_PORT}${MQTT_PATH} as ${clientId}...`);
+    const statusEl = document.getElementById("connection-status");
+    if (statusEl) {
+        statusEl.textContent = "Connecting…";
+        statusEl.classList.remove("connected", "disconnected");
+    }
     client.connect({
         onSuccess: onConnect,
         onFailure: onFailure,
-        useSSL: true
+        useSSL: true,
+        keepAliveInterval: 30,
+        timeout: 10,
+        reconnect: true
     });
 }
 
 function onConnect() {
     console.log("Connected to MQTT broker!");
     const statusEl = document.getElementById("connection-status");
-    statusEl.textContent = "Connected";
-    statusEl.classList.remove("disconnected");
-    statusEl.classList.add("connected");
+    if (statusEl) {
+        statusEl.textContent = "Connected";
+        statusEl.classList.remove("disconnected");
+        statusEl.classList.add("connected");
+    }
+
+    // Subscribe to all zone/light command topics to receive retained states
+    zoneConfig.forEach(zone => {
+        zone.lights.forEach(light => {
+            const topic = `my_private_room_99/zone${zone.id}/light${light.id}/command`;
+            client.subscribe(topic);
+            console.log(`Subscribed to ${topic}`);
+        });
+    });
 }
 
 function onFailure(responseObject) {
     console.error("Connection failed:", responseObject.errorMessage);
     const statusEl = document.getElementById("connection-status");
-    statusEl.textContent = "Connection Failed";
+    if (statusEl) {
+        statusEl.textContent = "Disconnected";
+        statusEl.classList.remove("connected");
+        statusEl.classList.add("disconnected");
+    }
+    // Retry after 5 seconds
+    setTimeout(connect, 5000);
 }
 
 function onConnectionLost(responseObject) {
@@ -95,6 +120,56 @@ function onConnectionLost(responseObject) {
         // Attempt reconnect after 5 seconds
         setTimeout(connect, 5000);
     }
+}
+
+// Handle incoming MQTT messages to sync UI across clients
+function onMessageArrived(message) {
+    const topic = message.destinationName;
+    const payload = message.payloadString;
+    // Expected topic format: my_private_room_99/zone{zId}/light{lId}/command
+    const match = topic.match(/zone(\d+)\/light(\d+)\/command/);
+    if (!match) return;
+
+    const zId = parseInt(match[1]);
+    const lId = parseInt(match[2]);
+    const isOn = payload === 'ON';
+
+    const toggle = document.querySelector(`.hidden-checkbox[data-zone="${zId}"][data-light="${lId}"]`);
+    const lightItem = document.getElementById(`zone${zId}-light${lId}`);
+    if (toggle && lightItem) {
+        toggle.checked = isOn;
+        if (isOn) {
+            lightItem.classList.add("active");
+        } else {
+            lightItem.classList.remove("active");
+        }
+    }
+
+    // Persist synced state in localStorage
+    const deviceKey = `device-${zId}-${lId}`;
+    localStorage.setItem(deviceKey, isOn ? 'ON' : 'OFF');
+
+    // Update counts and badges (guard for DOM readiness)
+    const countEl = document.getElementById('usage-active-count');
+    if (countEl) {
+        const activeCount = document.querySelectorAll('.hidden-checkbox:checked').length;
+        countEl.innerText = activeCount;
+    }
+    document.querySelectorAll('.zone-group[data-zone-id]').forEach(group => {
+        const activeInZone = group.querySelectorAll('.hidden-checkbox:checked').length;
+        const badge = group.querySelector('.zone-active-badge');
+        if (badge) {
+            if (activeInZone > 0) {
+                badge.textContent = '💡 ' + activeInZone;
+                badge.classList.add('visible');
+                group.classList.add('has-active');
+            } else {
+                badge.textContent = '';
+                badge.classList.remove('visible');
+                group.classList.remove('has-active');
+            }
+        }
+    });
 }
 
 // Zone Configuration
@@ -125,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const zoneId = group.getAttribute('data-zone-id');
             const activeInZone = group.querySelectorAll('.hidden-checkbox:checked').length;
             const badge = group.querySelector('.zone-active-badge');
-            
+
             if (badge) {
                 if (activeInZone > 0) {
                     badge.textContent = '💡 ' + activeInZone;
@@ -152,12 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
         toggle.checked = isOn;
         if (isOn) {
             lightItem.classList.add("active");
-        // Persist state in localStorage
-        const deviceKey = `device-${zId}-${lId}`;
-        localStorage.setItem(deviceKey, isOn ? 'ON' : 'OFF');
         } else {
             lightItem.classList.remove("active");
         }
+
+        // Persist state in localStorage
+        const deviceKey = `device-${zId}-${lId}`;
+        localStorage.setItem(deviceKey, isOn ? 'ON' : 'OFF');
 
         // MQTT Publish
         if (client.isConnected()) {
@@ -165,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const payload = isOn ? "ON" : "OFF";
             const message = new Paho.MQTT.Message(payload);
             message.destinationName = topic;
-        message.retained = true; // Ensure broker retains last state
+            message.retained = true; // Ensure broker retains last state
             client.send(message);
             console.log(`Published to ${topic}: ${payload}`);
         } else {
@@ -180,13 +256,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 logToGoogleSheets(zone.name, light.name, isOn ? "ON" : "OFF");
             }
         }
-        
+
         // Update Active Count
         updateActiveCount();
         updateZoneBadges();
     }
 
-        // Restore device states from localStorage on page load
+    // Restore device states from localStorage on page load
     function restoreState() {
         zoneConfig.forEach(zone => {
             zone.lights.forEach(light => {
@@ -207,32 +283,9 @@ document.addEventListener("DOMContentLoaded", () => {
         updateZoneBadges();
     }
 
-// Handle incoming MQTT messages to sync UI across clients
-function onMessageArrived(message) {
-    const topic = message.destinationName;
-    const payload = message.payloadString;
-    // Expected topic format: my_private_room_99/zone{zId}/light{lId}/command
-    const match = topic.match(/zone(\d+)\/light(\d+)\/command/);
-    if (!match) return;
-    const zId = parseInt(match[1]);
-    const lId = parseInt(match[2]);
-    const isOn = payload === 'ON';
-    const toggle = document.querySelector(`.hidden-checkbox[data-zone="${zId}"][data-light="${lId}"]`);
-    const lightItem = document.getElementById(`zone${zId}-light${lId}`);
-    if (toggle && lightItem) {
-        toggle.checked = isOn;
-        if (isOn) {
-            lightItem.classList.add("active");
-        } else {
-            lightItem.classList.remove("active");
-        }
-    }
-    // Update counts and badges
-    updateActiveCount();
-    updateZoneBadges();
-}
 
-// Direct Toggle Event Listeners
+
+    // Direct Toggle Event Listeners
     const toggles = document.querySelectorAll('input[type="checkbox"]');
     toggles.forEach(toggle => {
         toggle.addEventListener('change', (e) => {
@@ -246,7 +299,7 @@ function onMessageArrived(message) {
     if (typeof restoreState === 'function') {
         restoreState();
     }
-    
+
     // Initial fetch of active state count
     updateActiveCount();
     updateZoneBadges();
@@ -311,7 +364,7 @@ function onMessageArrived(message) {
 function toggleZone(headerElement) {
     headerElement.classList.toggle('open');
     const collapse = headerElement.nextElementSibling;
-    
+
     if (collapse.classList.contains('open')) {
         // Close
         collapse.style.maxHeight = null;
