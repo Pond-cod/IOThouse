@@ -1,6 +1,6 @@
 // Configuration
-const MQTT_BROKER = "broker.hivemq.com";
-const MQTT_PORT = 8884;
+const MQTT_BROKER = "broker.emqx.io";
+const MQTT_PORT = 8084;
 const MQTT_PATH = "/mqtt";
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2rEX2JVVWgrmlh5GaUwOM-1QDgFO6etcpgWtr_ShJpkAaJHHIGAu_abJfgom_YxcCiw/exec';
 
@@ -74,8 +74,7 @@ function connect() {
         onFailure: onFailure,
         useSSL: true,
         keepAliveInterval: 30,
-        timeout: 10,
-        reconnect: true
+        timeout: 10
     });
 }
 
