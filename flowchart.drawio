@@ -1,0 +1,191 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="jRQjPGq5samCbZiIBMyL">
+    <mxGraphModel dx="2377" dy="1402" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iNK02bLO5k_tTskGYKMK-31" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="โหลดไฟฟ้า" vertex="1">
+          <mxGeometry height="672" width="257" x="2081" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-32" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="ตู้ควบคุม (Control Box)" vertex="1">
+          <mxGeometry height="291" width="1072" x="570" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-33" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="แหล่งจ่ายไฟบ้าน (220V AC)" vertex="1">
+          <mxGeometry height="651" width="193" x="20" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-34" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="Line (L)" vertex="1">
+          <mxGeometry height="54" width="115" x="59" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-35" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="Neutral (N)" vertex="1">
+          <mxGeometry height="54" width="140" x="46" y="457" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-36" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="Main Breaker 10A/16A" vertex="1">
+          <mxGeometry height="54" width="219" x="261" y="181" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-37" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="Switching Power Supply&#xa;(220V AC -&gt; 5V DC)" vertex="1">
+          <mxGeometry height="78" width="260" x="595" y="247" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-38" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="ESP32 Microcontroller&#xa;(เชื่อมต่อ Wi-Fi)" vertex="1">
+          <mxGeometry height="102" width="260" x="958" y="284" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-39" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="16-Channel Relay Board" vertex="1">
+          <mxGeometry height="54" width="230" x="1387" y="267" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-40" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="ไฟหน้าบ้าน (Zone 1)" vertex="1">
+          <mxGeometry height="54" width="200" x="2109" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-41" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="ไฟกลางบ้าน (Zone 2)" vertex="1">
+          <mxGeometry height="54" width="207" x="2106" y="461" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-42" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="ไฟโซนอื่นๆ..." vertex="1">
+          <mxGeometry height="54" width="153" x="2133" y="603" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-43" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="ขา COM ทุกช่อง" vertex="1">
+          <mxGeometry height="54" width="167" x="1004" y="461" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-44" parent="1" style="whiteSpace=wrap;strokeWidth=2;" value="ขา NO (เปิดเมื่อสั่ง)" vertex="1">
+          <mxGeometry height="54" width="187" x="1692" y="267" as="geometry" />
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-45" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-34" style="curved=1;startArrow=none;endArrow=block;exitX=0.79;exitY=1;entryX=0;entryY=0.5;rounded=0;" target="iNK02bLO5k_tTskGYKMK-36" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="211" y="208" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-46" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-36" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.2;entryY=0;rounded=0;" target="iNK02bLO5k_tTskGYKMK-37" value="สาย L">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="208" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-47" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-35" style="curved=1;startArrow=none;endArrow=block;exitX=0.67;exitY=0;entryX=0.23;entryY=1;rounded=0;" target="iNK02bLO5k_tTskGYKMK-37" value="สาย N">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="211" y="373" />
+              <mxPoint x="570" y="373" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-48" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-37" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.55;entryX=0;entryY=0.19;rounded=0;" target="iNK02bLO5k_tTskGYKMK-38" value="+5V">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="906" y="291" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-49" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-37" style="curved=1;startArrow=none;endArrow=block;exitX=0.84;exitY=1;entryX=0;entryY=0.72;rounded=0;" target="iNK02bLO5k_tTskGYKMK-38" value="GND (-)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="906" y="367" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-50" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-37" style="curved=1;startArrow=none;endArrow=block;exitX=0.76;exitY=0;entryX=0.29;entryY=0;rounded=0;" target="iNK02bLO5k_tTskGYKMK-39" value="+5V (VCC)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="906" y="182" />
+              <mxPoint x="1303" y="182" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-51" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-37" style="curved=1;startArrow=none;endArrow=block;exitX=0.95;exitY=0;entryX=0.16;entryY=0;rounded=0;" target="iNK02bLO5k_tTskGYKMK-39" value="GND (-)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="906" y="226" />
+              <mxPoint x="1303" y="226" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-52" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-38" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.11;entryX=0;entryY=0.23;rounded=0;" target="iNK02bLO5k_tTskGYKMK-39" value="ขา GPIO 1 (3.3V)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1303" y="269" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-53" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-38" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.37;entryX=0;entryY=0.7;rounded=0;" target="iNK02bLO5k_tTskGYKMK-39" value="ขา GPIO 2 (3.3V)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1303" y="313" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-54" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-38" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=1;exitY=0.63;entryX=0.13;entryY=1;rounded=0;" target="iNK02bLO5k_tTskGYKMK-39" value="ขา GPIO 3-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1303" y="357" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-55" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-36" style="curved=1;startArrow=none;endArrow=block;exitX=0.57;exitY=1;entryX=0;entryY=0.5;rounded=0;" target="iNK02bLO5k_tTskGYKMK-43" value="สาย L (จั๊มบัสบาร์)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="525" y="488" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-56" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-43" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.85;exitY=0;entryX=0.25;entryY=1;rounded=0;" target="iNK02bLO5k_tTskGYKMK-39" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1303" y="389" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-57" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-39" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" target="iNK02bLO5k_tTskGYKMK-44" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-58" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-44" style="curved=1;startArrow=none;endArrow=block;exitX=0.63;exitY=0;entryX=0;entryY=0.27;rounded=0;" target="iNK02bLO5k_tTskGYKMK-40" value="สาย L จ่ายเข้าหลอดไฟ">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1980" y="71" />
+              <mxPoint x="2081" y="71" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-59" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-44" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.41;entryY=0;rounded=0;" target="iNK02bLO5k_tTskGYKMK-41" value="สาย L จ่ายเข้าหลอดไฟ">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2081" y="294" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-60" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-44" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.59;exitY=1;entryX=0;entryY=0.1;rounded=0;" target="iNK02bLO5k_tTskGYKMK-42" value="สาย L จ่ายเข้าหลอดไฟ">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1980" y="594" />
+              <mxPoint x="2081" y="594" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-61" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-35" style="curved=1;startArrow=none;endArrow=block;exitX=0.55;exitY=0;entryX=0;entryY=0.73;rounded=0;" target="iNK02bLO5k_tTskGYKMK-40" value="สาย N (จั๊มบัสบาร์)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="211" y="103" />
+              <mxPoint x="2081" y="103" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-62" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-35" style="curved=1;startArrow=none;endArrow=block;exitX=0.74;exitY=1;entryX=0.27;entryY=1;rounded=0;" target="iNK02bLO5k_tTskGYKMK-41" value="สาย N (จั๊มบัสบาร์)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="211" y="562" />
+              <mxPoint x="2081" y="562" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iNK02bLO5k_tTskGYKMK-63" edge="1" parent="1" source="iNK02bLO5k_tTskGYKMK-35" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.61;exitY=1;entryX=0;entryY=0.68;rounded=0;" target="iNK02bLO5k_tTskGYKMK-42" value="สาย N (จั๊มบัสบาร์)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="211" y="646" />
+              <mxPoint x="2081" y="646" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
