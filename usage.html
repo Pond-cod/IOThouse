@@ -8,6 +8,96 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>⚡ Pond's Smart Home | Usage</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Individual Usage Section ── */
+        .usage-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .usage-zone-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 12px 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .usage-zone-title:first-child {
+            padding-top: 0;
+        }
+
+        .usage-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .usage-item:hover {
+            border-color: var(--border-hover);
+        }
+
+        .usage-item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .usage-item-icon {
+            font-size: 1.2rem;
+        }
+
+        .usage-item-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .usage-item-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .usage-item-hours {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .usage-item-cost {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--amber);
+        }
+
+        .usage-empty {
+            text-align: center;
+            padding: 24px;
+            color: var(--text-tertiary);
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,7 +112,7 @@
 
         <!-- Summary Cards -->
         <section class="summary-section">
-            <div class="summary-grid" style="grid-template-columns: 1fr;">
+            <div class="summary-grid" style="grid-template-columns: 1fr 1fr;">
                 <div class="summary-card cost-card">
                     <div class="summary-icon">💰</div>
                     <div class="summary-details">
@@ -37,6 +127,14 @@
                         <span id="usage-total-hours" class="summary-value">0.00 hrs</span>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Individual Light Usage -->
+        <section>
+            <div class="section-title">💡 การใช้งานแต่ละดวง</div>
+            <div class="usage-list" id="individual-usage">
+                <div class="usage-empty">กำลังโหลดข้อมูล...</div>
             </div>
         </section>
 
@@ -66,5 +164,86 @@
     <!-- Paho MQTT client from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Zone config for display (icons + names)
+        const zoneDisplay = {
+            "หน้าบ้าน": "🏠",
+            "กลางบ้าน": "🛋️",
+            "ห้องน้ำ": "🚿",
+            "ครัว": "🍳",
+            "ห้องแรก": "🛏️",
+            "ห้องกลาง": "🛏️"
+        };
+
+        function renderIndividualUsage(individual) {
+            const container = document.getElementById('individual-usage');
+
+            if (!individual || Object.keys(individual).length === 0) {
+                container.innerHTML = '<div class="usage-empty">ยังไม่มีข้อมูลการใช้งาน</div>';
+                return;
+            }
+
+            // Group by zone
+            const grouped = {};
+            for (const [key, stats] of Object.entries(individual)) {
+                // key format: "zone_light"
+                const parts = key.split('_');
+                const zone = parts[0];
+                const light = parts.slice(1).join('_');
+
+                if (!grouped[zone]) grouped[zone] = [];
+                grouped[zone].push({ light, hours: stats.hours, cost: stats.cost });
+            }
+
+            let html = '';
+            for (const [zone, lights] of Object.entries(grouped)) {
+                const icon = zoneDisplay[zone] || '📍';
+                html += `<div class="usage-zone-title">${icon} ${zone}</div>`;
+
+                // Sort by hours descending
+                lights.sort((a, b) => b.hours - a.hours);
+
+                lights.forEach(item => {
+                    const hrs = parseFloat(item.hours).toFixed(2);
+                    const cost = parseFloat(item.cost).toFixed(2);
+                    html += `
+                        <div class="usage-item">
+                            <div class="usage-item-left">
+                                <span class="usage-item-icon">💡</span>
+                                <span class="usage-item-name">${item.light}</span>
+                            </div>
+                            <div class="usage-item-right">
+                                <span class="usage-item-hours">${hrs} hrs</span>
+                                <span class="usage-item-cost">฿${cost}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Override fetchSummaryData to also render individual usage
+        const _origFetch = fetchSummaryData;
+        fetchSummaryData = function () {
+            fetch(GOOGLE_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    const hoursEl = document.getElementById('usage-total-hours');
+                    if (hoursEl) hoursEl.innerText = (data.totalHours || "0.00") + " hrs";
+                    const costEl = document.getElementById('usage-total-cost');
+                    if (costEl) costEl.innerText = "฿" + (data.totalCost || "0.00");
+
+                    // Render individual light usage
+                    renderIndividualUsage(data.individual);
+                })
+                .catch(error => {
+                    console.error('Error fetching summary:', error);
+                    document.getElementById('individual-usage').innerHTML =
+                        '<div class="usage-empty" style="color: var(--red);">โหลดข้อมูลไม่สำเร็จ</div>';
+                });
+        };
+    </script>
 </body>
 </html>
